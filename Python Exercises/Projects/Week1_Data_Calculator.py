@@ -27,30 +27,35 @@ def modulo(x,y):
         return x%y
 
 
-Calculator = True   
-while Calculator:
-    print("\n--- CLI Calculator ---")
-    cmd = input("Enter [A] Add, [S] Subtract, [M] Multiply, [D] Divide, [R] Modulo, or [Q] Quit: ").upper()
-    match cmd:
-            case "A": 
-                 x,y = get_numbers()
-                 print(f"The result is {add(x,y)}")
-            case "S": 
-                x,y = get_numbers()
-                print(f"The result is {subtract(x,y)}")
-            case "M": 
-                x,y = get_numbers()
-                print(f"The result is {multiply(x,y)}")
-            case "D": 
-                x,y = get_numbers(ask_zero_check=True)
-                print(f"The result is {divide(x,y)}")
-            case "R":
-                x,y = get_numbers(ask_zero_check=True)
-                print(f"The result is {modulo(x,y)}")
-            case "Q": 
-                    print(f"Goodbye!")
-                    break
-            case _:print(f"Invalid choice. Please choose a valid option.")
+def calculator_main():
+     Calculator = True   
+     while Calculator:
+        print("\n--- CLI Calculator ---")
+        cmd = input("Enter [A] Add, [S] Subtract, [M] Multiply, [D] Divide, [R] Modulo, or [Q] Quit: ").upper()
+        match cmd:
+                case "A": 
+                    x,y = get_numbers()
+                    print(f"The result is {add(x,y)}")
+                case "S": 
+                    x,y = get_numbers()
+                    print(f"The result is {subtract(x,y)}")
+                case "M": 
+                    x,y = get_numbers()
+                    print(f"The result is {multiply(x,y)}")
+                case "D": 
+                    x,y = get_numbers(ask_zero_check=True)
+                    print(f"The result is {divide(x,y)}")
+                case "R":
+                    x,y = get_numbers(ask_zero_check=True)
+                    print(f"The result is {modulo(x,y)}")
+                case "Q": 
+                        print(f"Goodbye!")
+                        break
+                case _:print(f"Invalid choice. Please choose a valid option.")
+         
+         
+if __name__ == "__main__":
+    calculator_main()
 
 
 

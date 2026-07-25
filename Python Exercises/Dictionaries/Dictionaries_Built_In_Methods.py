@@ -46,6 +46,16 @@ carC = {
 carC.get("brand")
 print(carC.get("brand"))
 
+carY = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = carY.get("price", 15000)
+
+print(x)
+
 
 carD = {
   "brand": "Ford",

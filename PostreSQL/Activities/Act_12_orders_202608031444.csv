@@ -1,0 +1,7 @@
+"order_id","customer_id","store_location","amount","order_date"
+1,101,Downtown,150.50,2026-01-10
+2,102,Uptown,200.00,2026-01-11
+3,101,Downtown,320.25,2026-01-12
+4,103,Westside,85.00,2026-01-12
+5,102,Uptown,145.75,2026-01-13
+6,101,Westside,210.00,2026-01-14

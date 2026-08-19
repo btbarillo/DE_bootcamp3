@@ -1,0 +1,14 @@
+"QUERY PLAN"
+Hash Join  (cost=1.15..13.52 rows=3 width=226) (actual time=0.027..0.029 rows=9.00 loops=1)
+  Hash Cond: (c.customer_id = o.customer_id)
+  Buffers: shared hit=2
+  ->  Seq Scan on customers c  (cost=0.00..11.70 rows=170 width=222) (actual time=0.013..0.013 rows=5.00 loops=1)
+        Buffers: shared hit=1
+  ->  Hash  (cost=1.11..1.11 rows=3 width=8) (actual time=0.010..0.010 rows=9.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=1
+        ->  Seq Scan on orders o  (cost=0.00..1.11 rows=3 width=8) (actual time=0.005..0.006 rows=9.00 loops=1)
+              Filter: (order_date >= '2026-01-01'::date)
+              Buffers: shared hit=1
+Planning Time: 0.141 ms
+Execution Time: 0.048 ms

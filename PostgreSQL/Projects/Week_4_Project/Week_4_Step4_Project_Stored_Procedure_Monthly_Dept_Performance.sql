@@ -1,4 +1,4 @@
-create procedure Monthly_Dept_Performance(
+create or replace procedure Monthly_Dept_Performance(
     p_year INT, 
     p_month INT
 )

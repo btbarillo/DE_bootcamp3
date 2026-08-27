@@ -1,0 +1,39 @@
+registration_id,student_id,student_name,enrollment_date,tuition_fee,payment_status,last_sync,downpayment,enrollment_month,college_department,campus_location,_merge
+101,S202606,Maria Clara Santos,2026-06-10,40806.01,Paid,2026-06-01 08:00:00,8161.202000000001,2026-06,College of Architecture,Manila Campus,both
+102,S202603,Ana Reyes,2026-06-12,62066.35,Pending,2026-06-02 08:00:00,12413.27,2026-06,College of Arts and Sciences,Cebu Campus,both
+103,S202607,Juan Dela Cruz,,54090.88,Unknown,2026-06-03 08:00:00,10818.176,,College of Pharmacy,Makati Campus,both
+104,S202604,Katrina Gonzales,2026-06-20,47817.76,Paid,2026-06-05 08:00:00,9563.552000000001,2026-06,College of Nursing,Manila Campus,both
+106,S202606,Maria Clara Santos,2026-07-01,45833.37,Pending,2026-06-06 08:00:00,9166.674,2026-07,College of Architecture,Manila Campus,both
+107,S202609,Maria Clara Santos,2026-07-05,63446.88,Pending,2026-06-07 08:00:00,12689.376,2026-07,College of Fine Arts,Quezon City Campus,both
+108,S202602,Juan Dela Cruz,2026-07-10,58781.35,Cancelled,2026-06-08 08:00:00,11756.27,2026-07,College of Computer Studies,Makati Campus,both
+109,S202606,Maria Clara Santos,2026-07-12,0.0,Paid,2026-06-09 08:00:00,0.0,2026-07,College of Architecture,Manila Campus,both
+110,S202607,Benjamin Cruz,2026-07-15,46587.69,Paid,2026-06-10 08:00:00,9317.538,2026-07,College of Pharmacy,Makati Campus,both
+111,S202604,Maria Clara Santos,2026-06-10,48470.05,Paid,2026-06-11 08:00:00,9694.01,2026-06,College of Nursing,Manila Campus,both
+112,S202603,Ana Reyes,2026-06-12,63610.21,Cancelled,2026-06-12 08:00:00,12722.042000000001,2026-06,College of Arts and Sciences,Cebu Campus,both
+113,S202607,Ana Reyes,,49281.37,Paid,2026-06-13 08:00:00,9856.274000000001,,College of Pharmacy,Makati Campus,both
+114,S202607,Gabriel Mendoza,2026-06-15,36039.97,Cancelled,2026-06-14 08:00:00,7207.994000000001,2026-06,College of Pharmacy,Makati Campus,both
+115,S202602,Ana Reyes,2026-06-20,36850.94,Unknown,2026-06-15 08:00:00,7370.188000000001,2026-06,College of Computer Studies,Makati Campus,both
+117,S202605,Ana Reyes,2026-07-05,25625.46,Paid,2026-06-17 08:00:00,5125.092000000001,2026-07,College of Education,Quezon City Campus,both
+118,S202604,Benjamin Cruz,2026-07-10,41936.06,Paid,2026-06-18 08:00:00,8387.212,2026-07,College of Nursing,Manila Campus,both
+119,S202601,Sofia Bautista,2026-07-12,40795.26,Paid,2026-06-19 08:00:00,8159.052000000001,2026-07,College of Business Administration,Quezon City Campus,both
+120,S202607,Gabriel Mendoza,2026-07-15,36739.53,Cancelled,2026-06-20 08:00:00,7347.906,2026-07,College of Pharmacy,Makati Campus,both
+121,S202605,Jose Rizal,2026-06-10,25563.19,Paid,2026-06-21 08:00:00,5112.638,2026-06,College of Education,Quezon City Campus,both
+122,S202601,Katrina Gonzales,2026-06-12,32953.7,Paid,2026-06-22 08:00:00,6590.74,2026-06,College of Business Administration,Quezon City Campus,both
+123,S202604,Juan Dela Cruz,,53453.68,Paid,2026-06-23 08:00:00,10690.736,,College of Nursing,Manila Campus,both
+124,S202600,Ana Reyes,2026-06-15,56607.02,Unknown,2026-06-24 08:00:00,11321.404,2026-06,College of Engineering,Manila Campus,both
+125,S202609,Maria Clara Santos,2026-06-20,49238.4,Cancelled,2026-06-25 08:00:00,9847.68,2026-06,College of Fine Arts,Quezon City Campus,both
+126,S202605,Sofia Bautista,2026-07-01,62052.04,Pending,2026-06-26 08:00:00,12410.408000000001,2026-07,College of Education,Quezon City Campus,both
+127,S202608,Ana Reyes,2026-07-05,51043.08,Pending,2026-06-27 08:00:00,10208.616000000002,2026-07,College of Accountancy,Manila Campus,both
+128,S202600,Maria Clara Santos,2026-07-10,61598.39,Paid,2026-06-28 08:00:00,12319.678,2026-07,College of Engineering,Manila Campus,both
+129,S202609,Katrina Gonzales,2026-07-12,59001.54,Unknown,2026-06-29 08:00:00,11800.308,2026-07,College of Fine Arts,Quezon City Campus,both
+130,S202602,Katrina Gonzales,2026-07-15,42978.03,Paid,2026-06-30 08:00:00,8595.606,2026-07,College of Computer Studies,Makati Campus,both
+131,S202606,Katrina Gonzales,2026-06-10,28816.4,Paid,2026-07-01 08:00:00,5763.280000000001,2026-06,College of Architecture,Manila Campus,both
+132,S202603,Maria Clara Santos,2026-06-12,39832.73,Unknown,2026-07-02 08:00:00,7966.546000000001,2026-06,College of Arts and Sciences,Cebu Campus,both
+133,S202608,Ana Reyes,,51753.65,Cancelled,2026-07-03 08:00:00,10350.730000000001,,College of Accountancy,Manila Campus,both
+134,S202602,Katrina Gonzales,2026-06-15,51636.89,Cancelled,2026-07-04 08:00:00,10327.378,2026-06,College of Computer Studies,Makati Campus,both
+135,S202604,Benjamin Cruz,2026-06-20,48651.91,Cancelled,2026-07-05 08:00:00,9730.382000000001,2026-06,College of Nursing,Manila Campus,both
+136,S202602,Gabriel Mendoza,2026-07-01,35988.87,Cancelled,2026-07-06 08:00:00,7197.774000000001,2026-07,College of Computer Studies,Makati Campus,both
+137,S202606,Maria Clara Santos,2026-07-05,47449.74,Cancelled,2026-07-07 08:00:00,9489.948,2026-07,College of Architecture,Manila Campus,both
+138,S202604,Maria Clara Santos,2026-07-10,40317.07,Unknown,2026-07-08 08:00:00,8063.414000000001,2026-07,College of Nursing,Manila Campus,both
+139,S202608,Ana Reyes,2026-07-12,63868.48,Unknown,2026-07-09 08:00:00,12773.696000000002,2026-07,College of Accountancy,Manila Campus,both
+140,S202606,Maria Clara Santos,2026-07-15,58956.55,Paid,2026-07-10 08:00:00,11791.310000000001,2026-07,College of Architecture,Manila Campus,both

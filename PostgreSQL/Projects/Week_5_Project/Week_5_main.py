@@ -21,7 +21,7 @@ df_enrollment = df_enrollment.dropna(subset=["Student ID"])
 df_enrollment["Student Name"] = df_enrollment["Student Name"].str.strip().str.title()
 df_enrollment["Payment Status"] = df_enrollment["Payment Status"].str.strip().str.capitalize()
 
-# 4. Enforce numeric and datetime data types
+# 4. Transform to numeric and datetime data types
 df_enrollment["Tuition Fee"] = pd.to_numeric(df_enrollment["Tuition Fee"], errors="coerce")
 df_enrollment["Enrollment Date"] = pd.to_datetime(df_enrollment["Enrollment Date"], errors="coerce")
 df_enrollment["Last Sync"] = pd.to_datetime(df_enrollment["Last Sync"], errors="coerce")
@@ -51,11 +51,11 @@ df_college = df_college.rename(columns={
     "Campus Location": "campus_location"
 })
 
-# 2. Feature Engineering
+# 2. Add new columns for downpayment and enrollment month
 df_enrollment["downpayment"] = df_enrollment["tuition_fee"] * 0.20
 df_enrollment["enrollment_month"] = df_enrollment["enrollment_date"].dt.to_period("M")
 
-# 3. Data Integration (Left Join)
+# 3. Data Integration by using Left Join
 merged = df_enrollment.merge(df_college, on="student_id", how="left", indicator=True)
 
 # 4. Aggregation by Department
@@ -74,4 +74,32 @@ print(summary)
 
 
 # Phase 5: Exporting & Visualization
+merged.to_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/PostgreSQL/Projects/Week_5_Project/enrollments_clean.csv", index=False)
+summary.to_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/PostgreSQL/Projects/Week_5_Project/department_summary.csv", index=False)
+print("CSVs are exported successfully!")
 
+
+import matplotlib.pyplot as plt
+
+# 1. Create the base plot from your summary DataFrame
+ax = summary.plot(
+    kind="bar",
+    x="college_department",
+    y="total_tuition",
+    legend=False,
+    color="skyblue"
+)
+
+# 2. Add Title and Axis Labels
+plt.title("PH Tuition fee summary per college department")
+plt.xlabel("College Department")
+plt.ylabel("Tuition Fee")
+
+# 3. Rotate X-Axis Labels so department names don't overlap
+plt.xticks(rotation=45, ha="right")
+
+# 4. Save the Chart as an Image
+plt.savefig("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/PostgreSQL/Projects/Week_5_Project/tuition_summary.png", bbox_inches="tight")
+
+# 5. Show or Close Plot
+plt.close()

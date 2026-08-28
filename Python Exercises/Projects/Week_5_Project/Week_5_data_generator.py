@@ -27,7 +27,7 @@ enrollments_data = {
 }
 
 df_enrollments = pd.DataFrame(enrollments_data)
-df_enrollments.to_csv("enrollments_dirty.csv", index=False)
+df_enrollments.to_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/Python Exercises/Projects/Week_5_Project/enrollments_dirty.csv", index=False)
 
 # Colleges and Departments lookup table
 colleges_data = {
@@ -47,6 +47,6 @@ colleges_data = {
 }
 
 df_colleges = pd.DataFrame(colleges_data)
-df_colleges.to_csv("colleges.csv", index=False)
+df_colleges.to_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/Python Exercises/Projects/Week_5_Project/colleges.csv", index=False)
 
 print("Successfully generated 'enrollments_dirty.csv' (40 rows) and 'colleges.csv'!")

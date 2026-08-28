@@ -3,8 +3,8 @@ import pandas as pd
 
 # Phase 2: Data Ingestion & Inspection
 
-df_enrollment = pd.read_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/PostgreSQL/Projects/Week_5_Project/enrollments_dirty.csv")
-df_college = pd.read_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/PostgreSQL/Projects/Week_5_Project/colleges.csv")
+df_enrollment = pd.read_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/Python Exercises/Projects/Week_5_Project/enrollments_dirty.csv")
+df_college = pd.read_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/Python Exercises/Projects/Week_5_Project/colleges.csv")
 
 
 
@@ -74,8 +74,8 @@ print(summary)
 
 
 # Phase 5: Exporting & Visualization
-merged.to_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/PostgreSQL/Projects/Week_5_Project/enrollments_clean.csv", index=False)
-summary.to_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/PostgreSQL/Projects/Week_5_Project/department_summary.csv", index=False)
+merged.to_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/Python Exercises/Projects/Week_5_Project/enrollments_clean.csv", index=False)
+summary.to_csv("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/Python Exercises/Projects/Week_5_Project/department_summary.csv", index=False)
 print("CSVs are exported successfully!")
 
 
@@ -99,7 +99,7 @@ plt.ylabel("Tuition Fee")
 plt.xticks(rotation=45, ha="right")
 
 # 4. Save the Chart as an Image
-plt.savefig("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/PostgreSQL/Projects/Week_5_Project/tuition_summary.png", bbox_inches="tight")
+plt.savefig("C:/Users/Bernadette/Documents/GitHub/DE_bootcamp3/Python Exercises/Projects/Week_5_Project/tuition_summary.png", bbox_inches="tight")
 
 # 5. Show or Close Plot
 plt.close()

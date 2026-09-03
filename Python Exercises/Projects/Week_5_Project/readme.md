@@ -19,6 +19,7 @@ pip install pandas matplotlib
 ```
 
 ## Repository Structure
+```
 .
 ├── enrollments_dirty.csv     # Raw, uncleaned enrollment records
 ├── colleges.csv              # Lookup table mapping students to college departments
@@ -26,4 +27,4 @@ pip install pandas matplotlib
 ├── enrollments_clean.csv     # Cleaned, merged, and transformed primary dataset
 ├── department_summary.csv    # Aggregated metrics (total revenue, student count, avg fee)
 └── tuition_summary.png       # Bar chart visualizing tuition revenue by department
-```
+

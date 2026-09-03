@@ -16,7 +16,6 @@ To install the required dependencies, run:
 
 ```bash
 pip install pandas matplotlib
-
 ```
 
 ## Repository Structure
@@ -27,3 +26,4 @@ pip install pandas matplotlib
 ├── enrollments_clean.csv     # Cleaned, merged, and transformed primary dataset
 ├── department_summary.csv    # Aggregated metrics (total revenue, student count, avg fee)
 └── tuition_summary.png       # Bar chart visualizing tuition revenue by department
+```

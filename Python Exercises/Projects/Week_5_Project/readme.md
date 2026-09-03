@@ -13,9 +13,9 @@ The main goal of this pipeline is to analyze university student enrollment recor
 * **Libraries:** `pandas`, `matplotlib`
 
 To install the required dependencies, run:
+
 ```bash
 pip install pandas matplotlib
-
 
 ## Repository Structure
 .

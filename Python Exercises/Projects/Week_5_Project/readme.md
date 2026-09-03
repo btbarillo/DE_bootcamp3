@@ -16,7 +16,7 @@ To install the required dependencies, run:
 
 ```bash
 pip install pandas matplotlib
-` ``` `
+```
 
 ## Repository Structure
 ```

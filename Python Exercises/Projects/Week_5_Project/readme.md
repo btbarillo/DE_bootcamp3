@@ -17,6 +17,8 @@ To install the required dependencies, run:
 ```bash
 pip install pandas matplotlib
 
+```
+
 ## Repository Structure
 .
 ├── enrollments_dirty.csv     # Raw, uncleaned enrollment records

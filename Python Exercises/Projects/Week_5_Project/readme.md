@@ -17,7 +17,7 @@ To install the required dependencies, run:
 pip install pandas matplotlib
 
 
-📁 Repository Structure
+`📁 Repository Structure`
 
 .
 ├── enrollments_dirty.csv     # Raw, uncleaned enrollment records

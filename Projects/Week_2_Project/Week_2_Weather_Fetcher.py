@@ -26,7 +26,7 @@ def parse_weather(raw_json):
 
 # 3. Loading
 def load_to_csv(data_row):
-    file_path = "C:/Users/Berna/OneDrive/Documents/CLMagno_DE_Bootcamp/Python Exercises/weather.csv"
+    file_path = "C:/Users/Berna/Documents/Github/DE_bootcamp3/Projects/Week_2_Project/weather.csv"
     with open(file_path, "a") as f:
         f.write(data_row)
     print("Data appended successfully!")

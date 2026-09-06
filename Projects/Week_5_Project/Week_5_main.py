@@ -1,101 +1,130 @@
+from pathlib import Path
+import matplotlib.pyplot as plt
 import pandas as pd
 
 
-# Phase 2: Data Ingestion & Inspection
+DATA_DIR = Path("data")
+RAW_ENROLLMENTS = DATA_DIR / "raw" / "enrollments_dirty.csv"
+RAW_COLLEGES = DATA_DIR / "raw" / "colleges.csv"
 
-df_enrollment = pd.read_csv("C:/Users/Berna/Documents/Github/DE_bootcamp3/Projects/Week_5_Project/enrollments_dirty.csv")
-df_college = pd.read_csv("C:/Users/Berna/Documents/Github/DE_bootcamp3/Projects/Week_5_Project/colleges.csv")
-
-
-
-# Phase 3: Data Cleaning Pipeline
-
-
-df_enrollment["Tuition Fee"] = df_enrollment["Tuition Fee"].fillna(0)
-df_enrollment["Payment Status"] = df_enrollment["Payment Status"].fillna("Unknown")
+PROCESSED_DIR = DATA_DIR / "processed"
+CLEAN_ENROLLMENTS = PROCESSED_DIR / "enrollments_clean.csv"
+DEPARTMENT_SUMMARY = PROCESSED_DIR / "department_summary.csv"
+VISUALIZATION = PROCESSED_DIR / "tuition_summary.png"
 
 
-df_enrollment = df_enrollment.dropna(subset=["Student ID"])
+PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
 
-df_enrollment["Student Name"] = df_enrollment["Student Name"].str.strip().str.title()
-df_enrollment["Payment Status"] = df_enrollment["Payment Status"].str.strip().str.capitalize()
+def clean_enrollments(path: Path) -> pd.DataFrame:
+    df = pd.read_csv(path)
+
+  
+    df["Tuition Fee"] = df["Tuition Fee"].fillna(0)
+    df["Payment Status"] = df["Payment Status"].fillna("Unknown")
 
 
-df_enrollment["Tuition Fee"] = pd.to_numeric(df_enrollment["Tuition Fee"], errors="coerce")
-df_enrollment["Enrollment Date"] = pd.to_datetime(df_enrollment["Enrollment Date"], errors="coerce")
-df_enrollment["Last Sync"] = pd.to_datetime(df_enrollment["Last Sync"], errors="coerce")
+    df = df.dropna(subset=["Student ID"])
+    df["Student Name"] = df["Student Name"].str.strip().str.title()
+    df["Payment Status"] = (
+        df["Payment Status"].str.strip().str.capitalize()
+    )
 
 
-df_enrollment = df_enrollment.sort_values(by="Last Sync")
-df_enrollment = df_enrollment.drop_duplicates(subset=["Registration ID"], keep="last")
+    df["Tuition Fee"] = pd.to_numeric(df["Tuition Fee"], errors="coerce")
+    df["Enrollment Date"] = pd.to_datetime(
+        df["Enrollment Date"], errors="coerce"
+    )
+    df["Last Sync"] = pd.to_datetime(df["Last Sync"], errors="coerce")
+
+
+    df = df.sort_values("Last Sync").drop_duplicates(
+        "Registration ID", keep="last"
+    )
+
+
+    df = df.rename(
+        columns={
+            "Registration ID": "registration_id",
+            "Student ID": "student_id",
+            "Student Name": "student_name",
+            "Enrollment Date": "enrollment_date",
+            "Tuition Fee": "tuition_fee",
+            "Payment Status": "payment_status",
+            "Last Sync": "last_sync",
+        }
+    )
+
+
+    df["downpayment"] = df["tuition_fee"] * 0.20
+    df["enrollment_month"] = df["enrollment_date"].dt.to_period("M")
+
+    return df
+
+
+def load_and_clean_colleges(path: Path) -> pd.DataFrame:
+    df = pd.read_csv(path)
+    return df.rename(
+        columns={
+            "Student ID": "student_id",
+            "College Department": "college_department",
+            "Campus Location": "campus_location",
+        }
+    )
+
+
+def summarize_departments(df: pd.DataFrame) -> pd.DataFrame:
+    return (
+        df.groupby("college_department")
+        .agg(
+            total_students=("registration_id", "count"),
+            total_tuition=("tuition_fee", "sum"),
+            avg_tuition=("tuition_fee", "mean"),
+        )
+        .reset_index()
+        .sort_values("total_tuition", ascending=False)
+    )
+
+
+def plot_summary(df: pd.DataFrame, output_path: Path) -> None:
+    ax = df.plot(
+        kind="bar",
+        x="college_department",
+        y="total_tuition",
+        legend=False,
+        color="skyblue",
+    )
+    plt.title("PH Tuition fee summary per college department")
+    plt.xlabel("College Department")
+    plt.ylabel("Tuition Fee")
+    plt.xticks(rotation=45, ha="right")
+    plt.savefig(output_path, bbox_inches="tight")
+    plt.close()
+
+
+def main():
+  
+    enrollments = clean_enrollments(RAW_ENROLLMENTS)
+    colleges = load_and_clean_colleges(RAW_COLLEGES)
+    merged = enrollments.merge(colleges, on="student_id", how="left")
+
+   
+    summary = summarize_departments(merged)
+
+
+    merged.to_csv(CLEAN_ENROLLMENTS, index=False)
+    summary.to_csv(DEPARTMENT_SUMMARY, index=False)
+    plot_summary(summary, VISUALIZATION)
+
+    # 4. Print results
+    print(f"Cleaned rows: {len(merged)}")
+    print("\n--- Department Summary Report ---")
+    print(summary)
+
+
+if __name__ == "__main__":
+    main()
 
 
 
-# Phase 4: Transformation, Merging & Analysis
 
-
-df_enrollment = df_enrollment.rename(columns={
-    "Registration ID": "registration_id",
-    "Student ID": "student_id",
-    "Student Name": "student_name",
-    "Enrollment Date": "enrollment_date",
-    "Tuition Fee": "tuition_fee",
-    "Payment Status": "payment_status",
-    "Last Sync": "last_sync"
-})
-
-df_college = df_college.rename(columns={
-    "Student ID": "student_id",
-    "College Department": "college_department",
-    "Campus Location": "campus_location"
-})
-
-
-df_enrollment["downpayment"] = df_enrollment["tuition_fee"] * 0.20
-df_enrollment["enrollment_month"] = df_enrollment["enrollment_date"].dt.to_period("M")
-
-
-merged = df_enrollment.merge(df_college, on="student_id", how="left", indicator=True)
-
-
-summary = merged.groupby("college_department").agg(
-    total_students=("registration_id", "count"),
-    total_tuition=("tuition_fee", "sum"),
-    avg_tuition=("tuition_fee", "mean")
-).reset_index()
-
-print("--- Merged Clean Data Preview ---")
-print(merged.head())
-
-print("\n--- Department Summary Report ---")
-print(summary)
-
-
-
-# Phase 5: Exporting & Visualization
-merged.to_csv("C:/Users/Berna/Documents/Github/DE_bootcamp3/Projects/Week_5_Project/enrollments_clean.csv", index=False)
-summary.to_csv("C:/Users/Berna/Documents/Github/DE_bootcamp3/Projects/Week_5_Project/department_summary.csv", index=False)
-print("CSVs are exported successfully!")
-
-
-import matplotlib.pyplot as plt
-
-
-ax = summary.plot(
-    kind="bar",
-    x="college_department",
-    y="total_tuition",
-    legend=False,
-    color="skyblue"
-)
-
-
-plt.title("PH Tuition fee summary per college department")
-plt.xlabel("College Department")
-plt.ylabel("Tuition Fee")
-
-
-plt.xticks(rotation=45, ha="right")
-plt.savefig("C:/Users/Berna/Documents/Github/DE_bootcamp3/Projects/Week_5_Project/tuition_summary.png", bbox_inches="tight")
-plt.close()

@@ -35,7 +35,31 @@ def extract(query: str="girls") -> list[dict]:
 
     return data
 
+def transform(records: list[dict]) -> pd.DataFrame:
+    logging.info("Transforming %d record", len(records))
+    df = pd.json_normalize(records)
+    column_mapping = {
+        "show.id": "id",
+        "show.name": "name",
+        "show.type": "type",
+        "show.language" :"language",
+        "show.status":"status"
+    }
+    existing_cols = [col for col in column_mapping.keys() if col in df.columns]
+    df = df[existing_cols].copy()
+    df = df.rename(columns=column_mapping)
+    df = df.fillna("Unknown")
+    df["loaded_at"] = datetime.now().isoformat(timespec="seconds")
+
+    return df
+
+
+
     
 if __name__ == "__main__":
     raw_data = extract()
-    print(f"Extracted {len(raw_data)} records successfully!")
+    transformed_df = transform(raw_data)
+    
+    print("\n--- Transformed DataFrame Head ---")
+    print(transformed_df.head())
+    print(f"\nTotal Transformed Rows: {len(transformed_df)}")

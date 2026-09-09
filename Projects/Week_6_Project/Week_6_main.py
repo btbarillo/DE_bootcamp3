@@ -12,7 +12,7 @@ from sqlalchemy import create_engine, text
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
 API_BASE_URL = os.getenv("API_BASE_URL", "https://api.tvmaze.com/search/shows")
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///data/processed/weather.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///data/processed/tv_shows.db")
 RAW_PATH = Path("data/processed/etl_raw_tv_shows.json")
 LOG_PATH = Path("data/processed/pipeline_runs.csv")
 
@@ -54,12 +54,29 @@ def transform(records: list[dict]) -> pd.DataFrame:
     return df
 
 
+def load(df: pd.DataFrame, table_name: str = "tv_shows") -> int:
+    logging.info("Loading to %s", DATABASE_URL)
+    engine = create_engine(DATABASE_URL)
+    with engine.begin() as conn:
+        df.to_sql(table_name, conn, if_exists="replace", index=False)
+        count = conn.execute(text(f"SELECT COUNT(*) FROM {table_name}")).scalar_one()
+    return count
+
+def log_run(extracted_count: int, loaded_count: int) -> None:
+    LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    log_df = pd.DataFrame([{
+        "timestamp": datetime.now().isoformat(timespec="seconds"),
+        "extracted_count": extracted_count,
+        "loaded_count": loaded_count
+    }])
+    log_df.to_csv(LOG_PATH, mode="a", header=not LOG_PATH.exists(), index=False)
+    logging.info("Execution log saved to %s", LOG_PATH)
 
     
 if __name__ == "__main__":
     raw_data = extract()
     transformed_df = transform(raw_data)
+    loaded_count = load(transformed_df)
+    log_run(len(raw_data), loaded_count)
     
-    print("\n--- Transformed DataFrame Head ---")
-    print(transformed_df.head())
-    print(f"\nTotal Transformed Rows: {len(transformed_df)}")
+    print(f"\nPipeline run successful! Total records in DB: {loaded_count}")

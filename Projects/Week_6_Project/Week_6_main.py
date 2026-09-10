@@ -74,7 +74,7 @@ def log_run(extracted_count: int, loaded_count: int) -> None:
 
     
 if __name__ == "__main__":
-    raw_data = extract()
+    raw_data = extract(input(f"Enter the name of the TV show:"))
     transformed_df = transform(raw_data)
     loaded_count = load(transformed_df)
     log_run(len(raw_data), loaded_count)

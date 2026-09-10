@@ -16,34 +16,39 @@ DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///data/processed/tv_shows.db")
 RAW_PATH = Path("data/processed/etl_raw_tv_shows.json")
 LOG_PATH = Path("data/processed/pipeline_runs.csv")
 
-def extract(query: str="girls") -> list[dict]:
-    url=f"{API_BASE_URL}?q={query}"
+def extract(query: str = "girls") -> list[dict]:
+    url = f"{API_BASE_URL}?q={query}"
     logging.info("Extracting from %s", url)
 
     try:
-        response = requests.get(url, timeout = 10)
+        response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
-        if isinstance(data,dict):
+        if isinstance(data, dict):
             data = [data]
     except Exception as e:
         logging.error("Failed to fetch data: %s", e)
         data = [{"show": {"id": 0, "name": "Fallback Show", "type": "Scripted"}}]
 
     RAW_PATH.parent.mkdir(parents=True, exist_ok=True)
-    RAW_PATH.write_text(json.dumps(data,indent=2), encoding="utf-8")
+    RAW_PATH.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
     return data
 
 def transform(records: list[dict]) -> pd.DataFrame:
-    logging.info("Transforming %d record", len(records))
+    logging.info("Transforming %d records", len(records))
+    
+    if not records:
+        logging.warning("No records returned from API.")
+        return pd.DataFrame(columns=["id", "name", "type", "language", "status", "loaded_at"])
+
     df = pd.json_normalize(records)
     column_mapping = {
         "show.id": "id",
         "show.name": "name",
         "show.type": "type",
-        "show.language" :"language",
-        "show.status":"status"
+        "show.language": "language",
+        "show.status": "status"
     }
     existing_cols = [col for col in column_mapping.keys() if col in df.columns]
     df = df[existing_cols].copy()
@@ -74,7 +79,9 @@ def log_run(extracted_count: int, loaded_count: int) -> None:
 
     
 if __name__ == "__main__":
-    raw_data = extract(input(f"Enter the name of the TV show:"))
+    user_query = input("Enter the name of the TV show: ").strip()
+    raw_data = extract(user_query) if user_query else extract()
+    
     transformed_df = transform(raw_data)
     loaded_count = load(transformed_df)
     log_run(len(raw_data), loaded_count)

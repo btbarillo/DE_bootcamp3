@@ -11,56 +11,92 @@ from sqlalchemy import create_engine, text
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
-API_BASE_URL = os.getenv("API_BASE_URL", "https://api.tvmaze.com/search/shows")
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///data/processed/tv_shows.db")
-RAW_PATH = Path("data/processed/etl_raw_tv_shows.json")
+API_BASE_URL = os.getenv("API_BASE_URL", "https://earthquake.usgs.gov/fdsnws/event/1/query")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///data/processed/earthquakes.db")
+RAW_PATH = Path("data/processed/etl_raw_earthquakes.json")
 LOG_PATH = Path("data/processed/pipeline_runs.csv")
 
-def extract(query: str = "girls") -> list[dict]:
-    url = f"{API_BASE_URL}?q={query}"
-    logging.info("Extracting from %s", url)
+def extract(format: str = "geojson", starttime: str = "2026-09-01", endtime: str = "2026-09-14", minmagnitude: str = "2.5") -> list[dict]:
+    logging.info("Extracting from %s", API_BASE_URL)
+
+    params = {
+    "format": format,
+    "starttime": starttime,
+    "endtime": endtime,
+    "minmagnitude": minmagnitude
+    }
 
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(API_BASE_URL, params=params, timeout=10)
         response.raise_for_status()
         data = response.json()
-        if isinstance(data, dict):
-            data = [data]
+        features = data.get("features", [])
     except Exception as e:
         logging.error("Failed to fetch data: %s", e)
-        data = [{"show": {"id": 0, "name": "Fallback Show", "type": "Scripted"}}]
+        features = [{
+            "id": "fallback_0",
+            "properties": {"mag": 0.0, "place": "Fallback Location", "title": "M 0.0 - Fallback", "time": 0},
+            "geometry": {"coordinates": [0.0, 0.0, 0.0]}
+        }]
 
     RAW_PATH.parent.mkdir(parents=True, exist_ok=True)
-    RAW_PATH.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    RAW_PATH.write_text(json.dumps(features, indent=2), encoding="utf-8")
 
-    return data
+    return features
 
 def transform(records: list[dict]) -> pd.DataFrame:
     logging.info("Transforming %d records", len(records))
-    
+
     if not records:
         logging.warning("No records returned from API.")
-        return pd.DataFrame(columns=["id", "name", "type", "language", "status", "loaded_at"])
+        return pd.DataFrame(
+            columns=[
+                "id",
+                "magnitude",
+                "place",
+                "title",
+                "event_time",
+                "longitude",
+                "latitude",
+                "depth",
+                "loaded_at",
+            ]
+        )
 
     df = pd.json_normalize(records)
     column_mapping = {
-        "show.id": "id",
-        "show.name": "name",
-        "show.type": "type",
-        "show.language": "language",
-        "show.status": "status"
+        "id": "id",
+        "properties.mag": "magnitude",
+        "properties.place": "place",
+        "properties.title": "title",
+        "properties.time": "event_time",
+        "geometry.coordinates": "coordinates",
     }
+
     existing_cols = [col for col in column_mapping.keys() if col in df.columns]
     df = df[existing_cols].copy()
     df = df.rename(columns=column_mapping)
-    df = df.fillna("Unknown")
+
+    df["longitude"] = df["coordinates"].apply(
+        lambda x: x[0] if isinstance(x, list) and len(x) > 0 else 0.0)
+    df["latitude"] = df["coordinates"].apply(
+        lambda x: x[1] if isinstance(x, list) and len(x) > 1 else 0.0)
+    df["depth"] = df["coordinates"].apply(
+        lambda x: x[2] if isinstance(x, list) and len(x) > 2 else 0.0)
+    
+    df = df.drop(columns=["coordinates"])
+
+    df["event_time"] = pd.to_datetime(df["event_time"], unit="ms")
+    df["place"] = df["place"].fillna("Unknown Location")
+    df["title"] = df["title"].fillna("Untitled Event")
+    df["magnitude"] = df["magnitude"].fillna(0.0)
     df["loaded_at"] = datetime.now().isoformat(timespec="seconds")
 
     return df
 
 
-def load(df: pd.DataFrame, table_name: str = "tv_shows") -> int:
-    logging.info("Loading to %s", DATABASE_URL)
+def load(df: pd.DataFrame, table_name: str = "earthquakes") -> int:
+    logging.info("Loading records into table '%s' at %s", table_name, DATABASE_URL)
     engine = create_engine(DATABASE_URL)
     with engine.begin() as conn:
         df.to_sql(table_name, conn, if_exists="replace", index=False)
@@ -75,15 +111,13 @@ def log_run(extracted_count: int, loaded_count: int) -> None:
         "loaded_count": loaded_count
     }])
     log_df.to_csv(LOG_PATH, mode="a", header=not LOG_PATH.exists(), index=False)
-    logging.info("Execution log saved to %s", LOG_PATH)
+    logging.info("Execution log appended to %s", LOG_PATH)
 
     
 if __name__ == "__main__":
-    user_query = input("Enter the name of the TV show: ").strip()
-    raw_data = extract(user_query) if user_query else extract()
-    
+    raw_data = extract()
     transformed_df = transform(raw_data)
     loaded_count = load(transformed_df)
     log_run(len(raw_data), loaded_count)
     
-    print(f"\nPipeline run successful! Total records in DB: {loaded_count}")
+    print(f"\nPipeline run successful! Total earthquake records in DB: {loaded_count}")

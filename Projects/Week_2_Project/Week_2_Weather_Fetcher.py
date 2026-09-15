@@ -21,7 +21,6 @@ def parse_weather(raw_json):
     area_info = raw_json["nearest_area"][0]
     final_city = area_info["areaName"][0]["value"]
 
-    # Format into a CSV row and return it
     return f"{final_city},{humidity},{temp}\n"
 
 # Loading

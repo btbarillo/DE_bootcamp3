@@ -1,4 +1,4 @@
--- 1. Create the Customers table
+
 
 CREATE TABLE customers (
 
@@ -10,7 +10,6 @@ email VARCHAR(100)
 
 );
 
--- 2. Create the Orders table (referencing customers)
 
 CREATE TABLE orders (
 
@@ -28,7 +27,7 @@ FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 
 );
 
--- Insert all customers
+
 INSERT INTO customers (customer_id, customer_name, email) VALUES
 (101, 'Alice Johnson', 'alice@example.com'),
 (102, 'Bob Smith', 'bob@example.com'),
@@ -36,7 +35,7 @@ INSERT INTO customers (customer_id, customer_name, email) VALUES
 (104, 'Diana Prince', 'diana@example.com'),
 (105, 'Evan Wright', 'evan@example.com');
 
--- Insert all orders
+
 INSERT INTO orders (order_id, customer_id, store_location, amount, order_date) VALUES
 (1, 101, 'Downtown', 150.50, '2026-01-10'),
 (2, 102, 'Uptown', 200.00, '2026-01-11'),

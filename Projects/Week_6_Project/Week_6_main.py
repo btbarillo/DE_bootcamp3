@@ -91,10 +91,6 @@ def transform(records: list[dict]) -> pd.DataFrame:
     df = df[existing_cols].copy()
     df = df.rename(columns=column_mapping)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e5a17e26a5c4fd411989f84e439851abc2102aad
     df["longitude"] = df["coordinates"].str[0].fillna(0.0)
     df["latitude"] = df["coordinates"].str[1].fillna(0.0)
     df["depth"] = df["coordinates"].str[2].fillna(0.0)

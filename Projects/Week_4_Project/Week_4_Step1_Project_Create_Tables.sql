@@ -31,9 +31,6 @@ CREATE TABLE Dim_Date (
     is_holiday_ph BOOLEAN DEFAULT FALSE
 );
 
--- ==========================================
--- 3. CREATE FACT TABLE
--- ==========================================
 
 CREATE TABLE Fact_Patient_Visits (
     visit_db_id SERIAL PRIMARY KEY,
@@ -51,11 +48,7 @@ CREATE TABLE Fact_Patient_Visits (
     triage_priority VARCHAR(30)
 );
 
--- ==========================================
--- 4. INSERT DUMMY DATA
--- ==========================================
 
--- Populate Dim_Patient (50 records)
 INSERT INTO Dim_Patient (patient_key, patient_id, full_name, age_group, gender, hmo_provider, membership_type) VALUES
 (1, 'PAT-1001', 'Juan dela Cruz', '26-40', 'Male', 'Maxicare', 'Principal'),
 (2, 'PAT-1002', 'Maria Santos', '41-60', 'Female', 'Intellicare', 'Dependent'),
@@ -108,7 +101,7 @@ INSERT INTO Dim_Patient (patient_key, patient_id, full_name, age_group, gender, 
 (49, 'PAT-1049', 'Rajah Sulayman', '41-60', 'Male', 'Caritas Health', 'Principal'),
 (50, 'PAT-1050', 'Lakandula', '60+', 'M', 'PhilHealth', 'Senior');
 
--- Populate Dim_Department (19 records)
+
 INSERT INTO Dim_Department (department_key, department_code, department_name, head_physician, building_wing) VALUES
 (1, 'CARD-01', 'Cardiology', 'Dr. Roberto Cruz', 'East Wing 2F'),
 (2, 'PEDI-01', 'Pediatrics', 'Dr. Maria Santos', 'West Wing 1F'),
@@ -130,7 +123,7 @@ INSERT INTO Dim_Department (department_key, department_code, department_name, he
 (18, 'PSYC-01', 'Psychiatry & Behavioral', 'Dr. John Lloyd Cruz', 'Annex B 3F'),
 (19, 'UROL-01', 'Urology', 'Dr. Richard Gomez', 'West Wing 3F');
 
--- Populate Dim_Date (45 dates)
+
 INSERT INTO Dim_Date (date_key, full_date, day_of_week, calendar_month, month_name, calendar_quarter, calendar_year, is_holiday_ph) VALUES
 (20260105, '2026-01-05', 'Monday', 1, 'January', 'Q1', 2026, FALSE),
 (20260112, '2026-01-12', 'Monday', 1, 'January', 'Q1', 2026, FALSE),
@@ -178,7 +171,7 @@ INSERT INTO Dim_Date (date_key, full_date, day_of_week, calendar_month, month_na
 (20261230, '2026-12-30', 'Wednesday', 12, 'December', 'Q4', 2026, TRUE),
 (20261231, '2026-12-31', 'Thursday', 12, 'December', 'Q4', 2026, TRUE);
 
--- Populate Fact_Patient_Visits (50 records)
+
 INSERT INTO Fact_Patient_Visits (visit_id, patient_key, department_key, visit_date_key, consultation_fee, lab_test_fees, hmo_coverage_amount, patient_copay_amount, wait_time_mins, consultation_length_mins, visit_status, triage_priority) VALUES
 ('VST-2026-001', 1, 1, 20260105, 800.00, 1500.00, 2000.00, 300.00, 45, 20, 'Completed', 'Level 3'),
 ('VST-2026-002', 2, 2, 20260112, 600.00, 800.00, 1400.00, 0.00, 25, 15, 'Completed', 'Level 4'),

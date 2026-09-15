@@ -5,8 +5,8 @@ def get_numbers(ask_zero_check=False):
     x = int(input("Enter your first number:"))
     y = int(input("Enter your second number:"))
             
-# Simple loop that checks if y is zero
-    while ask_zero_check==True and y == 0:
+
+    while ask_zero_check==True and y == 0:  # Added a loop that checks if y is zero
         y = float(input("Number should not be zero! Enter another number: "))
     return x, y
 

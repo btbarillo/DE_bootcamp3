@@ -23,9 +23,6 @@ INSERT INTO salesman_revenue (salesman_id, salesman_name, total_revenue) VALUES
 
 
 
---- Use ROW_NUMBER() to assign a top 10 ranking to salesmen based on their total revenue.
-
-
 WITH ranking_top_10_salesman AS (
     SELECT 
         salesman_name, 

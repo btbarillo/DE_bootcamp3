@@ -5,14 +5,12 @@ create or replace procedure Monthly_Dept_Performance(
 language plpgsql
 as $$
 begin
--- Step 1: Idempotency (Delete old records for p_year and p_month)
     delete
 from
 	monthly_department_performance
 where
 	year_num = p_year
 	and month_num = p_month;
--- Step 2: Insert transformed data
 	insert
 	into
 	monthly_department_performance (

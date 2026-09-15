@@ -116,7 +116,7 @@ def main():
     summary.to_csv(DEPARTMENT_SUMMARY, index=False)
     plot_summary(summary, VISUALIZATION)
 
-    # 4. Print results
+
     print(f"Cleaned rows: {len(merged)}")
     print("\n--- Department Summary Report ---")
     print(summary)

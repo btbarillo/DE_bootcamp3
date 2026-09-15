@@ -17,6 +17,6 @@ prev_month_revenue numeric(12, 2),
     mom_revenue_growth_pct numeric(8, 2),
     ytd_revenue numeric(14, 2),
     department_revenue_rank INT,
--- Audit Metadata
+-- Add timestamp
 created_at TIMESTAMP default CURRENT_TIMESTAMP
 );

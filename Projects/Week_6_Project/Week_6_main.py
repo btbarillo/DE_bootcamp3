@@ -1,13 +1,12 @@
 import json
 import logging
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import pandas as pd
 import requests
 from sqlalchemy import create_engine, text
-
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
@@ -16,14 +15,21 @@ DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///data/processed/earthquakes.d
 RAW_PATH = Path("data/processed/etl_raw_earthquakes.json")
 LOG_PATH = Path("data/processed/pipeline_runs.csv")
 
-def extract(format: str = "geojson", starttime: str = "2026-09-01", endtime: str = "2026-09-14", minmagnitude: str = "2.5") -> list[dict]:
-    logging.info("Extracting from %s", API_BASE_URL)
+
+def extract(format: str = "geojson",starttime: str = None, endtime: str = None, minmagnitude: str = "2.5") -> list[dict]:
+
+    if not starttime:
+        starttime = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
+    if not endtime:
+        endtime = datetime.now().strftime("%Y-%m-%d")
+
+    logging.info("Extracting earthquake data from %s to %s", starttime, endtime)
 
     params = {
-    "format": format,
-    "starttime": starttime,
-    "endtime": endtime,
-    "minmagnitude": minmagnitude
+        "format": format,
+        "starttime": starttime,
+        "endtime": endtime,
+        "minmagnitude": minmagnitude,
     }
 
     try:
@@ -33,16 +39,24 @@ def extract(format: str = "geojson", starttime: str = "2026-09-01", endtime: str
         features = data.get("features", [])
     except Exception as e:
         logging.error("Failed to fetch data: %s", e)
-        features = [{
-            "id": "fallback_0",
-            "properties": {"mag": 0.0, "place": "Fallback Location", "title": "M 0.0 - Fallback", "time": 0},
-            "geometry": {"coordinates": [0.0, 0.0, 0.0]}
-        }]
+        features = [
+            {
+                "id": "fallback_0",
+                "properties": {
+                    "mag": 0.0,
+                    "place": "Fallback Location",
+                    "title": "M 0.0 - Fallback",
+                    "time": 0,
+                },
+                "geometry": {"coordinates": [0.0, 0.0, 0.0]},
+            }
+        ]
 
     RAW_PATH.parent.mkdir(parents=True, exist_ok=True)
     RAW_PATH.write_text(json.dumps(features, indent=2), encoding="utf-8")
 
     return features
+
 
 def transform(records: list[dict]) -> pd.DataFrame:
     logging.info("Transforming %d records", len(records))
@@ -77,12 +91,10 @@ def transform(records: list[dict]) -> pd.DataFrame:
     df = df[existing_cols].copy()
     df = df.rename(columns=column_mapping)
 
-    df["longitude"] = df["coordinates"].apply(
-        lambda x: x[0] if isinstance(x, list) and len(x) > 0 else 0.0)
-    df["latitude"] = df["coordinates"].apply(
-        lambda x: x[1] if isinstance(x, list) and len(x) > 1 else 0.0)
-    df["depth"] = df["coordinates"].apply(
-        lambda x: x[2] if isinstance(x, list) and len(x) > 2 else 0.0)
+    # Fast vectorized coordinate extraction
+    df["longitude"] = df["coordinates"].str[0].fillna(0.0)
+    df["latitude"] = df["coordinates"].str[1].fillna(0.0)
+    df["depth"] = df["coordinates"].str[2].fillna(0.0)
     
     df = df.drop(columns=["coordinates"])
 
@@ -103,21 +115,26 @@ def load(df: pd.DataFrame, table_name: str = "earthquakes") -> int:
         count = conn.execute(text(f"SELECT COUNT(*) FROM {table_name}")).scalar_one()
     return count
 
+
 def log_run(extracted_count: int, loaded_count: int) -> None:
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
-    log_df = pd.DataFrame([{
-        "timestamp": datetime.now().isoformat(timespec="seconds"),
-        "extracted_count": extracted_count,
-        "loaded_count": loaded_count
-    }])
+    log_df = pd.DataFrame(
+        [
+            {
+                "timestamp": datetime.now().isoformat(timespec="seconds"),
+                "extracted_count": extracted_count,
+                "loaded_count": loaded_count,
+            }
+        ]
+    )
     log_df.to_csv(LOG_PATH, mode="a", header=not LOG_PATH.exists(), index=False)
     logging.info("Execution log appended to %s", LOG_PATH)
 
-    
+
 if __name__ == "__main__":
     raw_data = extract()
     transformed_df = transform(raw_data)
     loaded_count = load(transformed_df)
     log_run(len(raw_data), loaded_count)
-    
+
     print(f"\nPipeline run successful! Total earthquake records in DB: {loaded_count}")

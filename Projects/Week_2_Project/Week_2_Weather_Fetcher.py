@@ -3,7 +3,7 @@
 
 import requests
 
-# 1. Extraction
+# Extraction
 def extract_weather(city):
     weather = requests.get(f"https://wttr.in/{city}?format=j1")
     if weather.status_code == 200:
@@ -12,7 +12,7 @@ def extract_weather(city):
         print(f"Failed to retrieve data. Status code: {weather.status_code}")
         return None
 
-# 2. Parsing
+# Parsing
 def parse_weather(raw_json):
     current = raw_json["current_condition"][0]
     humidity = current["humidity"]
@@ -24,7 +24,7 @@ def parse_weather(raw_json):
     # Format into a CSV row and return it
     return f"{final_city},{humidity},{temp}\n"
 
-# 3. Loading
+# Loading
 def load_to_csv(data_row):
     file_path = "C:/Users/Berna/Documents/Github/DE_bootcamp3/Projects/Week_2_Project/weather.csv"
     with open(file_path, "a") as f:

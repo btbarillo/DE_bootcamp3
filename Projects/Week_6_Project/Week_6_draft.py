@@ -7,3 +7,4 @@ import pandas as pd
 import requests
 from sqlalchemy import create_engine, text
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(messages)s")

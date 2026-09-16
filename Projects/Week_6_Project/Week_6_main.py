@@ -3,7 +3,6 @@ import logging
 import os
 from datetime import datetime, timedelta
 from pathlib import Path
-
 import pandas as pd
 import requests
 from sqlalchemy import create_engine, text

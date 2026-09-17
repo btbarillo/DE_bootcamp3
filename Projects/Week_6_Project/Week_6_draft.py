@@ -24,9 +24,19 @@ def extract(format: str="geojson", starttime: str = None, endtime: str = None, m
 
     logging.info("Extracting earthquake data from %s to %s", starttime, endtime)
 
-    params={
+    params= {
         "format" = format,
         "starttime" = starttime,
-        
+        "endtime" = endtime,
+        "minmagnitude" = minmagnitude,
+        }
 
-    }
+    try:
+        response = requests.get(API_BASE_URL, params=params, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        features = data.get("features", [])
+
+
+
+    return features

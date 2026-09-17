@@ -20,23 +20,92 @@ def extract(format: str="geojson", starttime: str = None, endtime: str = None, m
     if not starttime:
         starttime = (datetime.now()- timedelta(days=7)).strftime("%Y-%m-%d")
     if not endtime:
-        endtimte = datetime.now().strftime("%Y-%m-%d")
+        endtime = datetime.now().strftime("%Y-%m-%d")
 
     logging.info("Extracting earthquake data from %s to %s", starttime, endtime)
 
-    params= {
-        "format" = format,
-        "starttime" = starttime,
-        "endtime" = endtime,
-        "minmagnitude" = minmagnitude,
-        }
+    params = {
+        "format": format,
+        "starttime": starttime,
+        "endtime": endtime,
+        "minmagnitude": minmagnitude,
+    }
 
     try:
         response = requests.get(API_BASE_URL, params=params, timeout=10)
         response.raise_for_status()
         data = response.json()
         features = data.get("features", [])
-
-
+    except Exception as e:
+        logging.error("Failed to fetch data %s", e)
+        features = [
+            {
+                "id": "fallback_0",
+                "properties": {
+                    "mag": 0.0,
+                    "place": "Fallback Location",
+                    "title": "M 0.0 - Fallback",
+                    "time": 0,
+                },
+                "geometry": {"coordinates": [0.0, 0.0, 0.0]},
+            }
+        ]
+    RAW_PATH.parent.mkdir(parents=True, exist_ok=True)
+    RAW_PATH.write_text(json.dumps(features,indent=2),encoding="utf-8")
 
     return features
+
+def transform(records: list[dict]) -> pd.DataFrame:
+    logging.info("Transforming %d records", len(records))
+
+    if not records:
+            logging.info("No records returned from API")
+            return pd.DataFrame(
+                columns=[
+                    "id",
+                    "magnitude",
+                    "place",
+                    "title",
+                    "event_time",
+                    "longitude",
+                    "latitude",
+                    "depth",
+                    "loaded_at",
+                ]
+        )
+
+    df = pd.json_normalize(records)
+    column_mapping = {
+        "id": "id",
+        "properties.mag": "magnitude",
+        "properties.place": "place",
+        "properties.title": "title",
+        "properties.time": "event_time",
+        "geometry.coordinates": "coordinates",
+    }
+
+    existing_cols = [col for col in column_mapping.keys() if col in df.columns]
+    df = df[existing_cols].copy()
+
+    df["longtitude"] = df["coordinates"].str[0].fillna(0.0)
+    df["latitude"] = df["coordinates"].str[1].fillna(0.0)
+    df["depth"] = df["coordinates"].str[2].fillna(0.0)
+    df = df.drop(columns=["coordinates"])
+    df["event_time"] = pd.to_datetime(df["event_time"], unit = "ms")
+    df["place"] = df["place"].fillna("Unknown Location")
+    df["title"] = df["title"].fillna("Untitled Event")
+    df["magnitude"] = df["magnitude"].fillna(0.0)
+    df["loaded_ate"] = datetime.now().isoformat(timespec="seconds")
+
+    return df
+
+def load(df: pd.DataFrame, table_name: str="earthquakes") -> int:
+     logging.info("Loading records into table '%s' at %s", table_name, DATABASE_URL)
+     engine = create_engine(DATABASE_URL)
+     with engine.begin() as conn:
+        df.to_sql(table_name, conn, if_exists="replace", index=False)
+        count = conn.execute(text(f"SELECT COUNT(*) FROM {table_name}")).scalar_one()
+     return count
+
+
+

@@ -133,4 +133,4 @@ if __name__ == "__main__":
     loaded_count = load(transformed_df)
     log_run(len(raw_data), loaded_count)
 
-    print(f"\nPipeline run successful! Total earthquake records in DB: {loaded_count}")
+    print(f"\nPipeline run successful! Total earthquake records in database: {loaded_count}")

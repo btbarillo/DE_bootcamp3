@@ -7,13 +7,16 @@ import pandas as pd
 import requests
 from sqlalchemy import create_engine, text
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
 
 API_BASE_URL = os.getenv("API_BASE_URL", "https://earthquake.usgs.gov/fdsnws/event/1/query")
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///data/processed/earthquakes.db")
 RAW_PATH = Path("data/processed/etl_raw_earthquakes.json")
 LOG_PATH = Path("data/processed/pipeline_runs.csv")
+LOG_DIR = Path("data/processed/pipeline_execution.log")
+LOG_DIR.mkdir(parents="True", exist_ok="True")
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", handlers=[logging.FileHandler(LOG_DIR / "pipeline_execution.log", encoding="utf-8"),logging.StreamHandler()])
 
 def extract(format: str = "geojson",starttime: str = None, endtime: str = None, minmagnitude: str = "2.5") -> list[dict]:
 

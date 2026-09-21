@@ -1,0 +1,7 @@
+flight_id,airline,airport_code,delay_minutes,flight_date
+PR101,Philippine Airlines,MNL,45,2026-09-18
+5J561,Cebu Pacific,CEB,120,2026-09-18
+Z2211,AirAsia,DVO,0,2026-09-18
+PR214,Philippine Airlines,MNL,15,2026-09-19
+5J890,Cebu Pacific,DVO,60,2026-09-19
+SQ917,Singapore Airlines,SIN,0,2026-09-19

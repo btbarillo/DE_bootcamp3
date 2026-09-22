@@ -3,8 +3,8 @@ import csv
 import json
 import requests
 import boto3
+from pathlib import Path
 from dotenv import load_dotenv
-
 
 load_dotenv()
 
@@ -12,6 +12,12 @@ AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 REGION = os.getenv("AWS_DEFAULT_REGION", "ap-southeast-2")
 BUCKET_NAME = os.getenv("AWS_S3_BUCKET_NAME", "my-flight-pipeline-bucket")
+
+CURRENT_FILE = Path(__file__).resolve()
+ROOT_DIR = CURRENT_FILE.parents[2] 
+DATA_DIR = ROOT_DIR / "data" / "raw"
+
+DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 def fetch_and_upload_users():
     print("Fetching users data from external API...")
@@ -23,8 +29,7 @@ def fetch_and_upload_users():
         users = response.json()
         print(f"Successfully fetched {len(users)} users!")
         
-
-        local_csv_path = "users_raw.csv"
+        local_csv_path = DATA_DIR / "users_raw.csv"
         fieldnames = ["user_id", "name", "username", "email", "city"]
         
         with open(local_csv_path, mode="w", newline="", encoding="utf-8") as file:
@@ -40,9 +45,8 @@ def fetch_and_upload_users():
                     "city": u["address"]["city"]
                 })
                 
-        print("Converted API JSON to local CSV (users_raw.csv)...")
+        print(f"Converted API JSON to local CSV at: {local_csv_path}")
         
-
         s3_client = boto3.client(
             "s3",
             aws_access_key_id=AWS_ACCESS_KEY,
@@ -51,7 +55,7 @@ def fetch_and_upload_users():
         )
         
         s3_key = "raw/users/users_raw.csv"
-        s3_client.upload_file(local_csv_path, BUCKET_NAME, s3_key)
+        s3_client.upload_file(str(local_csv_path), BUCKET_NAME, s3_key)
         
         print(f"Successfully uploaded users data to s3://{BUCKET_NAME}/{s3_key}")
         

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BUCKET_NAME = os.getenv("CLOUD_BUCKET_NAME", "my-flight-pipeline-bucket")
-AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
+AWS_REGION = os.getenv("AWS_REGION", "ap-southeast-2")
 
 CURRENT_FILE = Path(__file__).resolve()
 ROOT_DIR = CURRENT_FILE.parents[2] 

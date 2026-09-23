@@ -84,4 +84,4 @@ ORDER BY f.delay_minutes DESC;
 <img width="1434" height="692" alt="image" src="https://github.com/user-attachments/assets/eda57456-1e8a-47a5-8c82-3c47a9b325de" />
 <img width="1425" height="697" alt="image" src="https://github.com/user-attachments/assets/16606de0-0b66-4166-ad54-78baa0ab39e7" />
 
-Here's the result: 
+Here's the CSV result: [Week_7_Project_Result.csv](https://github.com/btbarillo/DE_bootcamp3/blob/master/data/processed/Week_7_Project_Result.csv)

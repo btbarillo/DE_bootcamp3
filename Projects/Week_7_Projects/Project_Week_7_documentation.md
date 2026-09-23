@@ -10,37 +10,40 @@ To combine flight operational data with user profiles to identify which specific
 
 ## Step-by-Step Implementation
 
-### Step 1: Environment & Credentials setup
-- Generated access keys on the AWS console for the `access key ID` and `secret access key`
-- Created a `.env` file for AWS Credentials to ensure sensitive keys are not exposed. Note: This was not committed to the GitHub repo.
+### Step 1: Environment & Credentials Setup
+- I generated an Access Key ID and Secret Access Key from the AWS Console for programmatic access.
+- I created a `.env` file to store these credentials safely and loaded them via `python-dotenv`. I made sure `.env` is listed in `.gitignore` so no sensitive keys get pushed to GitHub.
 
 <img width="639" height="176" alt="image" src="https://github.com/user-attachments/assets/3920aa66-6874-45bf-8ab7-cb4c14e4d557" />
 
-### Step 2: Data ingestion to Amazon S3
-- Created and ran `Week_7_upload_csv_to_s3.py` to upload [flights_raw.csv](https://github.com/btbarillo/DE_bootcamp3/tree/master/data/raw/flights_raw.csv) to the AWS S3 bucket
-- Created and ran `Week_7_fetch_and_upload_api_users.py` to fetch from the API https://jsonplaceholder.typicode.com/users and convert the API JSON to a local CSV, then uploaded the local CSV to the AWS S3 bucket
+### Step 2: Data Ingestion to Amazon S3
+- I wrote `Week_7_upload_csv_to_s3.py` to upload the static [flights_raw.csv](https://github.com/btbarillo/DE_bootcamp3/tree/master/data/raw/flights_raw.csv) directly to my S3 bucket.
+- I wrote `Week_7_fetch_and_upload_api_users.py` to pull user data from the REST API (https://jsonplaceholder.typicode.com/users), format it into a CSV, and upload it to the `raw/users/` path in S3.
+
 <img width="1429" height="681" alt="image" src="https://github.com/user-attachments/assets/31801f8c-d480-4e64-b775-94d0bd24edfd" />
 <img width="1148" height="436" alt="image" src="https://github.com/user-attachments/assets/5fb8a63c-cebb-4f9a-9782-d89c3664aee4" />
 <img width="1134" height="454" alt="image" src="https://github.com/user-attachments/assets/01bb35a1-5829-4196-bf47-24f84bb0b3ee" />
 
 
 ### Step 3: Schema Creation in Amazon Athena
-Note: I tried setting up the AWS Glue Crawler so that the data from the S3 bucket would be automatically converted to Athena tables; however, I encountered this access denied issue while setting up:
+> **Note on AWS Glue Crawler:** I initially tried setting up an AWS Glue Crawler to auto-discover table schemas in S3, but I hit an Access Denied error due to IAM permission limits on the student account:
+
 <img width="1236" height="254" alt="image" src="https://github.com/user-attachments/assets/c34dccfa-7461-4483-9ba8-43d128b13c14" />
 
-- Due to permissions restrictions when setting up the AWS Glue Crawler, the `flight_delay_db` database was manually created in Athena DDL
+- To work around this restriction, I manually created the `flight_delay_db` database using Athena DDL:
+
 <img width="1429" height="705" alt="image" src="https://github.com/user-attachments/assets/b892dc2e-7c42-4041-bd98-8a99fb240d78" />
 
+- Then, I defined the external table structures for both datasets:
+  - `flights` table (pointing to S3 flights directory)
+  - `users` table (pointing to S3 users directory)
 
-- Next, created external tables manually in Athena DDL:
-  - `flights` table
-  - `users` table
 <img width="1418" height="699" alt="image" src="https://github.com/user-attachments/assets/b3043c06-5ab0-43ed-a98d-9267d0573d7e" />
 <img width="1433" height="693" alt="image" src="https://github.com/user-attachments/assets/3681a07b-a1eb-4f34-9bee-6cf05069bfbe" />
 
 
-### Step 4: Data integration & Query analysis
-- Performed SQL JOIN to combine flight details with user profile data.
+### Step 4: Data Integration & Query Analysis
+- I wrote a SQL CTE query using `ROW_NUMBER()` to simulate a relational join between the flight records and user profiles.
 
 <img width="1427" height="691" alt="image" src="https://github.com/user-attachments/assets/73faab40-e64d-49f8-a62d-7c4dbd976435" />
 

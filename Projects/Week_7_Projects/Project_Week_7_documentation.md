@@ -79,3 +79,8 @@ LEFT JOIN numbered_users u
   ON f.join_id = u.join_id
 ORDER BY f.delay_minutes DESC;
 ```
+- The result was generated in the S3 bucket
+<img width="1438" height="693" alt="image" src="https://github.com/user-attachments/assets/b52ea12d-0676-495d-a153-caaf1c3ec314" />
+<img width="1434" height="692" alt="image" src="https://github.com/user-attachments/assets/eda57456-1e8a-47a5-8c82-3c47a9b325de" />
+<img width="1425" height="697" alt="image" src="https://github.com/user-attachments/assets/16606de0-0b66-4166-ad54-78baa0ab39e7" />
+

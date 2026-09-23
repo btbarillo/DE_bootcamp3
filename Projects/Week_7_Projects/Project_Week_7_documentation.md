@@ -28,7 +28,7 @@ To combine flight operational data with user profiles to identify which specific
 Note: I tried setting up the AWS Glue Crawler so that the data from the S3 bucket would be automatically converted to Athena tables; however, I encountered this access denied issue while setting up:
 <img width="1236" height="254" alt="image" src="https://github.com/user-attachments/assets/c34dccfa-7461-4483-9ba8-43d128b13c14" />
 
-- Since I am having troubles on setting up the AAWS Glue Crawler, I just created database manually in Athena DDL
+- Since I am having trouble setting up the AAWS Glue Crawler, the `flight_delay_db` database was manually created in Athena DDL
 <img width="1432" height="697" alt="image" src="https://github.com/user-attachments/assets/695a71f3-2673-41f1-9384-68b3ee138ac9" />
 
 - Next, created external tables manually in Athena DDL:
@@ -38,3 +38,44 @@ Note: I tried setting up the AWS Glue Crawler so that the data from the S3 bucke
 
 <img width="1420" height="685" alt="image" src="https://github.com/user-attachments/assets/2602c1b2-bafa-4105-8f84-a735c7a711ee" />
 
+
+### Step 4: Data integration & Query analysis
+- Performed SQL JOIN to combine flight details with user profile data.
+
+<img width="1427" height="691" alt="image" src="https://github.com/user-attachments/assets/73faab40-e64d-49f8-a62d-7c4dbd976435" />
+
+```sql
+WITH numbered_flights AS (
+  SELECT 
+    flight_id,
+    airline,
+    airport_code,
+    delay_minutes,
+    flight_date,
+    ROW_NUMBER() OVER (ORDER BY flight_id) AS join_id
+  FROM flight_delay_db.flights
+),
+numbered_users AS (
+  SELECT 
+    user_id,
+    name,
+    username,
+    email,
+    city,
+    ROW_NUMBER() OVER (ORDER BY user_id) AS join_id
+  FROM flight_delay_db.users
+)
+SELECT 
+  f.flight_id,
+  f.airline,
+  f.airport_code,
+  f.delay_minutes,
+  f.flight_date,
+  u.name AS passenger_name,
+  u.email AS passenger_email,
+  u.city AS passenger_city
+FROM numbered_flights f
+LEFT JOIN numbered_users u 
+  ON f.join_id = u.join_id
+ORDER BY f.delay_minutes DESC;
+```

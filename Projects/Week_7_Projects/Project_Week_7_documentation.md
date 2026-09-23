@@ -23,3 +23,12 @@ To combine flight operational data with user profiles to identify which specific
 <img width="1148" height="436" alt="image" src="https://github.com/user-attachments/assets/5fb8a63c-cebb-4f9a-9782-d89c3664aee4" />
 <img width="1134" height="454" alt="image" src="https://github.com/user-attachments/assets/01bb35a1-5829-4196-bf47-24f84bb0b3ee" />
 
+
+### Step 3: Schema Creation in Amazon Athena
+- Created external tables manually in Athena DDL:
+  - `flights` table
+  - `users` table
+<img width="1425" height="692" alt="image" src="https://github.com/user-attachments/assets/50b8bc1e-9946-44b8-b1e7-a49589950702" />
+
+<img width="1420" height="685" alt="image" src="https://github.com/user-attachments/assets/2602c1b2-bafa-4105-8f84-a735c7a711ee" />
+

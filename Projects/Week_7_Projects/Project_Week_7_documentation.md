@@ -5,7 +5,7 @@ This project demonstrates the end-to-end cloud migration of a local data pipelin
 
 
 ## Project Objective
-To combine flight operational data with user profiles to identify which specific passengers(including their info such as cities and email addresses) are impacted by flight delays.
+To combine flight operational data with user profiles to identify which specific passengers (including their info such as cities and email addresses) are impacted by flight delays.
 
 
 ## Step-by-Step Implementation
@@ -28,7 +28,7 @@ To combine flight operational data with user profiles to identify which specific
 Note: I tried setting up the AWS Glue Crawler so that the data from the S3 bucket would be automatically converted to Athena tables; however, I encountered this access denied issue while setting up:
 <img width="1236" height="254" alt="image" src="https://github.com/user-attachments/assets/c34dccfa-7461-4483-9ba8-43d128b13c14" />
 
-- Since I am having trouble setting up the AAWS Glue Crawler, the `flight_delay_db` database was manually created in Athena DDL
+- Since I am having trouble setting up the AWS Glue Crawler, the `flight_delay_db` database was manually created in Athena DDL
 <img width="1432" height="697" alt="image" src="https://github.com/user-attachments/assets/695a71f3-2673-41f1-9384-68b3ee138ac9" />
 
 - Next, created external tables manually in Athena DDL:

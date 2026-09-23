@@ -11,14 +11,14 @@ To combine flight operational data with user profiles to identify which specific
 ## Step-by-Step Implementation
 
 ### Step 1: Environment & Credentials Setup
-- I generated an Access Key ID and Secret Access Key from the AWS Console.
-- I created a `.env` file to store these credentials safely and loaded them via `python-dotenv`. I made sure `.env` is listed in `.gitignore` so no sensitive keys get pushed to GitHub.
+- I generated an `Access Key ID` and `Secret Access Key` from the AWS Console.
+- I created a `.env` file to store these credentials safely and loaded them via `python-dotenv`. `.env` is ensured to be listed in `.gitignore` so no sensitive keys get pushed to GitHub.
 
 <img width="639" height="176" alt="image" src="https://github.com/user-attachments/assets/3920aa66-6874-45bf-8ab7-cb4c14e4d557" />
 
 ### Step 2: Data Ingestion to Amazon S3
-- I wrote `Week_7_upload_csv_to_s3.py` to upload the static [flights_raw.csv](https://github.com/btbarillo/DE_bootcamp3/tree/master/data/raw/flights_raw.csv) directly to my S3 bucket.
-- I wrote `Week_7_fetch_and_upload_api_users.py` to pull user data from the REST API (https://jsonplaceholder.typicode.com/users), format it into a CSV, and upload it to the `raw/users/` path in S3.
+- I created and ran `Week_7_upload_csv_to_s3.py` to upload the static [flights_raw.csv](https://github.com/btbarillo/DE_bootcamp3/tree/master/data/raw/flights_raw.csv) directly to my S3 bucket.
+- I created and ran `Week_7_fetch_and_upload_api_users.py` to pull user data from the REST API (https://jsonplaceholder.typicode.com/users), format it into a CSV, and then upload it to the `raw/users/` path in S3 bucket.
 
 <img width="1429" height="681" alt="image" src="https://github.com/user-attachments/assets/31801f8c-d480-4e64-b775-94d0bd24edfd" />
 <img width="1148" height="436" alt="image" src="https://github.com/user-attachments/assets/5fb8a63c-cebb-4f9a-9782-d89c3664aee4" />
@@ -26,7 +26,7 @@ To combine flight operational data with user profiles to identify which specific
 
 
 ### Step 3: Schema Creation in Amazon Athena
-> **Note on AWS Glue Crawler:** I initially tried setting up an AWS Glue Crawler to auto-discover table schemas in S3, but I encountered an Access Denied error:
+> **Note on AWS Glue Crawler:** I initially tried setting up an AWS Glue Crawler to auto-detect the schema from my S3 bucket, but I encountered an Access Denied error:
 
 <img width="1236" height="254" alt="image" src="https://github.com/user-attachments/assets/c34dccfa-7461-4483-9ba8-43d128b13c14" />
 

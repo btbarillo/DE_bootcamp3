@@ -10,7 +10,11 @@ To combine flight operational data with user profiles to identify which specific
 
 ## Step-by-Step Implementation
 
-### Step 1: Environment & Credentials Setup
+### Step 1: Environment & Credentials setup
 - Created `.env` file for AWS Credentials to ensure sensitive keys are not exposed.
 
 <img width="639" height="176" alt="image" src="https://github.com/user-attachments/assets/3920aa66-6874-45bf-8ab7-cb4c14e4d557" />
+
+### Step 2: Data ingestion to Amazon S3
+- Created and run `upload_files_to_s3.py` to upload [flights_raw.csv](https://github.com/btbarillo/DE_bootcamp3/tree/master/data/raw/flights_raw.csv)
+- Created and run  `fetch_users_api.py` to fetch and upload the data from the API https://jsonplaceholder.typicode.com/users

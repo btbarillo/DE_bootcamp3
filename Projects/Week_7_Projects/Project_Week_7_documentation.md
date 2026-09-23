@@ -18,7 +18,7 @@ To combine flight operational data with user profiles to identify which specific
 
 ### Step 2: Data ingestion to Amazon S3
 - Created and ran `Week_7_upload_csv_to_s3.py` to upload [flights_raw.csv](https://github.com/btbarillo/DE_bootcamp3/tree/master/data/raw/flights_raw.csv) to the AWS S3 bucket
-- Created and ran  `Week_7_fetch_and_upload_api_users.py` to fetch from the API https://jsonplaceholder.typicode.com/users and convert the API JSON to a local CSV, then uploaded the local CSV to the AWS S3 bucket
+- Created and ran `Week_7_fetch_and_upload_api_users.py` to fetch from the API https://jsonplaceholder.typicode.com/users and convert the API JSON to a local CSV, then uploaded the local CSV to the AWS S3 bucket
 <img width="1429" height="681" alt="image" src="https://github.com/user-attachments/assets/31801f8c-d480-4e64-b775-94d0bd24edfd" />
 <img width="1148" height="436" alt="image" src="https://github.com/user-attachments/assets/5fb8a63c-cebb-4f9a-9782-d89c3664aee4" />
 <img width="1134" height="454" alt="image" src="https://github.com/user-attachments/assets/01bb35a1-5829-4196-bf47-24f84bb0b3ee" />
@@ -40,7 +40,7 @@ Note: I tried setting up the AWS Glue Crawler so that the data from the S3 bucke
 
 
 ### Step 4: Data integration & Query analysis
-- Performed an SQL JOIN to combine flight details with user profile data.
+- Performed SQL JOIN to combine flight details with user profile data.
 
 <img width="1427" height="691" alt="image" src="https://github.com/user-attachments/assets/73faab40-e64d-49f8-a62d-7c4dbd976435" />
 

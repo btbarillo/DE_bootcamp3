@@ -29,14 +29,14 @@ Note: I tried setting up the AWS Glue Crawler so that the data from the S3 bucke
 <img width="1236" height="254" alt="image" src="https://github.com/user-attachments/assets/c34dccfa-7461-4483-9ba8-43d128b13c14" />
 
 - Since I am having trouble setting up the AWS Glue Crawler, the `flight_delay_db` database was manually created in Athena DDL
-<img width="1432" height="697" alt="image" src="https://github.com/user-attachments/assets/695a71f3-2673-41f1-9384-68b3ee138ac9" />
+<img width="1429" height="705" alt="image" src="https://github.com/user-attachments/assets/b892dc2e-7c42-4041-bd98-8a99fb240d78" />
+
 
 - Next, created external tables manually in Athena DDL:
   - `flights` table
   - `users` table
-<img width="1425" height="692" alt="image" src="https://github.com/user-attachments/assets/50b8bc1e-9946-44b8-b1e7-a49589950702" />
-
-<img width="1420" height="685" alt="image" src="https://github.com/user-attachments/assets/2602c1b2-bafa-4105-8f84-a735c7a711ee" />
+<img width="1418" height="699" alt="image" src="https://github.com/user-attachments/assets/b3043c06-5ab0-43ed-a98d-9267d0573d7e" />
+<img width="1433" height="693" alt="image" src="https://github.com/user-attachments/assets/3681a07b-a1eb-4f34-9bee-6cf05069bfbe" />
 
 
 ### Step 4: Data integration & Query analysis

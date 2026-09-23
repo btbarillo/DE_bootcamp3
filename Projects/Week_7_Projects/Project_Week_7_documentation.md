@@ -11,7 +11,7 @@ To combine flight operational data with user profiles to identify which specific
 ## Step-by-Step Implementation
 
 ### Step 1: Environment & Credentials Setup
-- I generated an Access Key ID and Secret Access Key from the AWS Console for programmatic access.
+- I generated an Access Key ID and Secret Access Key from the AWS Console.
 - I created a `.env` file to store these credentials safely and loaded them via `python-dotenv`. I made sure `.env` is listed in `.gitignore` so no sensitive keys get pushed to GitHub.
 
 <img width="639" height="176" alt="image" src="https://github.com/user-attachments/assets/3920aa66-6874-45bf-8ab7-cb4c14e4d557" />
@@ -26,11 +26,11 @@ To combine flight operational data with user profiles to identify which specific
 
 
 ### Step 3: Schema Creation in Amazon Athena
-> **Note on AWS Glue Crawler:** I initially tried setting up an AWS Glue Crawler to auto-discover table schemas in S3, but I hit an Access Denied error due to IAM permission limits on the student account:
+> **Note on AWS Glue Crawler:** I initially tried setting up an AWS Glue Crawler to auto-discover table schemas in S3, but I encountered an Access Denied error:
 
 <img width="1236" height="254" alt="image" src="https://github.com/user-attachments/assets/c34dccfa-7461-4483-9ba8-43d128b13c14" />
 
-- To work around this restriction, I manually created the `flight_delay_db` database using Athena DDL:
+- To work around this restriction temporarily, I manually created the `flight_delay_db` database using Athena DDL:
 
 <img width="1429" height="705" alt="image" src="https://github.com/user-attachments/assets/b892dc2e-7c42-4041-bd98-8a99fb240d78" />
 

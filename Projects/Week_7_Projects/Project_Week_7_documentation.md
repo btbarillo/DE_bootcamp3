@@ -43,7 +43,7 @@ To combine flight operational data with user profiles to identify which specific
 
 
 ### Step 4: Data integration & query analysis
-- I wrote a SQL CTE query using `ROW_NUMBER()` to simulate a relational join between the flight records and user profiles.
+-Since the two datasets didn't have a shared key, I used `ROW_NUMBER()` inside CTEs to generate matching keys and JOIN the flight records with user profiles.
 
 <img width="1427" height="691" alt="image" src="https://github.com/user-attachments/assets/73faab40-e64d-49f8-a62d-7c4dbd976435" />
 

@@ -1,0 +1,8 @@
+country_name,region,emergency_contact_email,risk_threshold_mag
+Philippines,Southeast Asia,alert_ph@disaster.gov.ph,4.0
+Japan,East Asia,alert_jp@disaster.gov.jp,5.0
+United States,North America,alert_us@disaster.gov.us,3.5
+Indonesia,Southeast Asia,alert_id@disaster.gov.id,4.5
+Chile,South America,alert_cl@disaster.gov.cl,4.0
+Taiwan,East Asia,alert_tw@disaster.gov.tw,4.5
+New Zealand,Oceania,alert_nz@disaster.gov.nz,4.0

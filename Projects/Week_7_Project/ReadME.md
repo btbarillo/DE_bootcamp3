@@ -8,7 +8,7 @@ In this project,
 ## Step-by-Step Implementation
 
 ### Step 1: Storage Setup (Google Cloud Storage)
-- I created my first bucket "berns-earthquake-pipeline-gcp" fr earthquake in the cloud storage buckets
+- I created my first bucket "berns-earthquake-pipeline-gcp" for earthquake in the cloud storage buckets
 <img width="1517" height="214" alt="image" src="https://github.com/user-attachments/assets/b3f43b7a-f966-41fb-bf02-c0ece8e98a1f" />
 
 

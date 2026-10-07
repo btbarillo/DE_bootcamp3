@@ -1,4 +1,4 @@
-# Week 7 Project: Flight & Users Data Pipeline using Google Cloud Platform
+# Week 7 Project: Flight & User Countries ETL Pipeline using Google Cloud Platform
 
 ## Project Overview
 In this project, 

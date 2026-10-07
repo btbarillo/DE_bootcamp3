@@ -8,7 +8,7 @@ In this project,
 ## Step-by-Step Implementation
 
 ### Step 1: Storage Setup (Google Cloud Storage)
--I set up a GCS Bucket (gs://berns-earthquake-pipeline-gcp/) with an organized folder structure for raw, processed, and script assets:
+- I set up a GCS Bucket (gs://berns-earthquake-pipeline-gcp/) with an organized folder structure for raw, processed, and script assets:
   - `/scripts/` – Stores the PySpark scripts (job_earthquake_api.py and job_user_countries.py).
   - `/raw/` – Landing storage for raw API ingestion data.
   - `/processed/earthquakes/dt=YYYY-MM-DD/` – Output directory for processed earthquake CSV/Parquet files partitioned by date.

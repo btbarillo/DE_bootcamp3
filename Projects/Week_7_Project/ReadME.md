@@ -77,6 +77,16 @@ To ensure data dependency and integrity, the pipeline runs in a strict sequentia
 ```
 
 ### Step 4: BigQuery Integration & External Tables
+To query the data without needing to duplicate or permanently import raw storage into the warehouse, external tables were set up:
 
+`ext_earthquakes` Table:
+
+- Points to the GCS path: gs://berns-earthquake-pipeline-gcp/processed/earthquakes/*.csv.
+
+- Dynamically reads across all partitioned subfolders at once.
+
+`ext_user_countries` Table:
+
+- Points to the reference directory of the user countries data in GCS.
 
 ### Step 5: BigQuery SQL for Data Analysis

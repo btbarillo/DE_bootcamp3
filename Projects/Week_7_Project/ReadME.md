@@ -21,7 +21,7 @@ In this project,
 ### Step 2: PySpark ETL Development (Dataproc Serverless)
 Generate two main PySpark batch scripts for data extraction and transformation:
 
-- `job_earthquake_api.py` (Earthquake API Ingestion Job):
+- [job_earthquake_api.py](https://github.com/btbarillo/DE_bootcamp3/blob/master/Projects/Week_7_Project/job_earthquake_api.py) (Earthquake API Ingestion Job):
   - Connects to the USGS API to fetch earthquake data based on specified parameters (e.g., minmagnitude, starttime, endtime).
   - Converts and normalizes the GeoJSON/JSON response into a structured tabular format (e.g., id, place, magnitude, event_time, longitude, latitude).
   - Writes the transformed data back to GCS under `/processed/earthquakes/` using Hive-style partitioning (`dt=YYYY-MM-DD`).

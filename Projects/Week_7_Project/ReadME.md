@@ -1,4 +1,4 @@
-# Week 7 Project: Flight & User Countries ETL Pipeline using Google Cloud Platform
+# Week 7 Project: Earthquake & User Countries ETL Pipeline using Google Cloud Platform
 
 ## Project Overview
 To extract and process real-time earthquake data from the USGS API alongside user country risk profiles in order to identify high-risk seismic events and automatically trigger location-based alerts.
@@ -11,7 +11,7 @@ To extract and process real-time earthquake data from the USGS API alongside use
   - `/scripts/` – Stores the PySpark scripts (`job_earthquake_api.py` and `job_user_countries.py`)
   - `/raw/` – Landing storage for raw API ingestion data
   - `/processed/earthquakes/dt=YYYY-MM-DD/` – Output directory for processed earthquake CSV/Parquet files partitioned by date
-  - `/processed/user_countries/dt=YYYY-MM-DD/` – Output directory for the user/country reference dataset partitioned by date
+  - `/processed/users/dt=YYYY-MM-DD/` – Output directory for the user/country reference dataset partitioned by date
   - `/reports/` – Storage for exported query results
 <img width="1460" height="643" alt="image" src="https://github.com/user-attachments/assets/18b149b2-2ced-43f8-aa43-48ef1ad5de19" />
 
@@ -27,7 +27,7 @@ To extract and process real-time earthquake data from the USGS API alongside use
 
 - [job_user_countries.py](https://github.com/btbarillo/DE_bootcamp3/blob/master/Projects/Week_7_Project/job_user_countries.py) (User/Country Reference Job):
   - Processes the user countries and threshold profiles data.
-  - Writes the clean data to GCS under `/processed/user_countries/`.
+  - Writes the clean data to GCS under `/processed/users/`.
 
 **Step 2.2:** Set up the batches for both scripts on `Managed Apache Spark`and used **PySpark** as the batch type
 
@@ -44,7 +44,7 @@ Used Google Cloud Workflows to orchestrate our PySpark jobs on Google Cloud Data
 
 ### 2. Sequential Job Execution
 To ensure data dependency and integrity, the pipeline runs in a strict sequential order:
-1. **`earthquake_job`:** Triggers `job_earthquake_api.py` to fetch, process, and save USGS earthquake data to Google Cloud Storage (GSC).
+1. **`earthquake_job`:** Triggers `job_earthquake_api.py` to fetch, process, and save USGS earthquake data to Google Cloud Storage (GCS).
 2. **`user_countries_job`:** Runs `job_user_countries.py` **only after** the earthquake job successfully completes.
 
 ### 3. Automatic Job Monitoring (*Polling*)

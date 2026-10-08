@@ -13,7 +13,7 @@ In BigQuery, I applied both **Partitioning** and **Clustering** on the `fact_sal
 ### 2. Clustering: `product_id`
 * **Column:** `product_id`
 * **Why:** 
-  - `product_id` is a high-cardinality column frequently used in `WHERE` filtering conditions and `JOIN` operations (connecting `fact_sales` with `dim_product`).
+  - `product_id` is a high-cardinality (meaning it  has a large number of distinct values) column frequently used in `WHERE` filtering conditions and `JOIN` operations (connecting `fact_sales` with `dim_product`).
   - Clustering organizes data within each date partition based on `product_id`, allowing BigQuery to quickly locate relevant blocks when running product-level analyses (e.g., Top Selling Products, Category Performance).
 
 ---

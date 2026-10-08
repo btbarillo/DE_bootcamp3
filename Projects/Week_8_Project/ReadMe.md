@@ -2,6 +2,8 @@
 
 In BigQuery, I applied both **Partitioning** and **Clustering** on the `fact_sales` table to optimize query performance.
 
+<img width="782" height="487" alt="image" src="https://github.com/user-attachments/assets/ea5aac63-ffcf-4bcd-99fc-6ce3c9834354" />
+
 ### 1. Partitioning: `order_date`
 * **Column:** `order_date` (Daily Partitioning)
 * **Why:** 

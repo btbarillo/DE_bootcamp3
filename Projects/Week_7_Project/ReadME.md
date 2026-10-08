@@ -44,8 +44,8 @@ Used Google Cloud Workflows to orchestrate our PySpark jobs on Google Cloud Data
 
 ### 2. Sequential Job Execution
 To ensure data dependency and integrity, the pipeline runs in a strict sequential order:
-1. **`run_earthquake_job`:** Triggers `job_earthquake_api.py` to fetch, process, and save USGS earthquake data to Google Cloud Storage (GSC).
-2. **`run_user_countries_job`:** Runs `job_user_countries.py` **only after** the earthquake job successfully completes.
+1. **`earthquake_job`:** Triggers `job_earthquake_api.py` to fetch, process, and save USGS earthquake data to Google Cloud Storage (GSC).
+2. **`user_countries_job`:** Runs `job_user_countries.py` **only after** the earthquake job successfully completes.
 
 ### 3. Automatic Job Monitoring (*Polling*)
 * **Status Checking:** The workflow automatically tracks the state of each Dataproc batch job.

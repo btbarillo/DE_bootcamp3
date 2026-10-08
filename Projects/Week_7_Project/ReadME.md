@@ -102,6 +102,6 @@ The query uses a conditional `CASE WHEN` evaluation to categorize events based o
 * **`CRITICAL ALERT`:** Triggered if an earthquake's magnitude is greater than or equal to the country's defined `risk_threshold_mag`.
 * **`MONITOR`:** Assigned if the earthquake's magnitude falls below the designated threshold.
 
-The analysis is saved in the reports folder under `berns-earthquake-pipeline-gcp`
+The analysis is saved in the reports folder under the bucket `berns-earthquake-pipeline-gcp`
 <img width="1328" height="479" alt="image" src="https://github.com/user-attachments/assets/66d198bd-72bd-477c-85fd-1dd836532f9a" />
 

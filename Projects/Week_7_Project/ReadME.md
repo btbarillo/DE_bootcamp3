@@ -82,7 +82,7 @@ To query the data without needing to duplicate or permanently import raw storage
 
 `table_earthquakes`:
 
-- Points to the GCS path: `gs://berns-earthquake-pipeline-gcp/processed/earthquakes/*.csv.`
+- Points to the GCS path: `gs://berns-earthquake-pipeline-gcp/processed/earthquakes/*.csv`
 - Dynamically reads across all partitioned subfolders at once.
 
 `table_user_countries`:
@@ -93,6 +93,8 @@ To query the data without needing to duplicate or permanently import raw storage
 ### Step 5: BigQuery SQL for Data Analysis
 
 Because there is no direct Foreign Key or ID match between the USGS location string (e.g., `"12 km S of Malate, Philippines"`) and the reference dataset's `country_name` (e.g., `"Philippines"`), I used `REGEXP_CONTAINS` combined with Word Boundaries (`\b`) and `LOWER()` for case-insensitive exact substring matching.
+
+Additionally, explicit deduplication (`SELECT DISTINCT`) is applied to the reference dataset subquery to ensure clean 1-to-many joins.
 
 **Conditional Alert Logic**
 

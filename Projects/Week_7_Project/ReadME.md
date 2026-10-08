@@ -76,7 +76,7 @@ To ensure data dependency and integrity, the pipeline runs in a strict sequentia
 ```
 
 ### Step 4: BigQuery Integration & External Tables
-To query the data without needing to duplicate or permanently import raw storage into the warehouse, external tables were set up:
+In BigQuery, I created the `berns_earthquake_db` dataset and configured external tables to query the data directly from GCS without duplicating or permanently importing files into the warehouse.
 
 <img width="1242" height="428" alt="image" src="https://github.com/user-attachments/assets/b49caf6d-ba04-4c7a-872b-424a68e0c80e" />
 

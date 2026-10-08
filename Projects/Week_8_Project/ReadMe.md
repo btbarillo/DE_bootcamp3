@@ -18,3 +18,4 @@ In BigQuery, I applied both **Partitioning** and **Clustering** on the `fact_sal
 
 ---
 **Summary:** Combining daily partitioning on `order_date` with clustering on `product_id` ensures maximum query speed, optimal data organization, and cost efficiency for our analytical queries.
+**Note: **: The CSVs used to create tables in BigQuery to rebuild `fact_sales`, `dim_customer`, and `dim_product` as physical tables can be found [here]()

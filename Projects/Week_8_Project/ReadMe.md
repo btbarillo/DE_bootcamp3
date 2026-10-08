@@ -1,4 +1,4 @@
-## Optimization Strategy (Partitioning & Clustering)
+## Partitioning & Clustering
 
 In BigQuery, I applied both **Partitioning** and **Clustering** on the `fact_sales` table to optimize query performance.
 

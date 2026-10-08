@@ -92,3 +92,12 @@ To query the data without needing to duplicate or permanently import raw storage
 - Dynamically reads across all partitioned subfolders at once.
 
 ### Step 5: BigQuery SQL for Data Analysis
+
+Because there is no direct Foreign Key or ID match between the USGS location string (e.g., `"12 km S of Malate, Philippines"`) and the reference dataset's `country_name` (e.g., `"Philippines"`), it used `REGEXP_CONTAINS` combined with Word Boundaries (`\b`) and `LOWER()` for case-insensitive exact substring matching.
+
+### Conditional Alert Logic
+
+The pipeline uses a conditional `CASE WHEN` evaluation to categorize events based on country-specific risk levels:
+
+* **`CRITICAL ALERT`:** Triggered if an earthquake's magnitude is greater than or equal to the country's defined `risk_threshold_mag`.
+* **`MONITOR`:** Assigned if the earthquake's magnitude falls below the designated threshold.

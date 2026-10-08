@@ -8,7 +8,7 @@ In this project,
 ## Step-by-Step Implementation
 
 ### Step 1: Storage Setup (Google Cloud Storage)
-- I set up a GCS Bucket (`gs://berns-earthquake-pipeline-gcp/`) with an organized folder structure for raw, processed, and script assets:
+- Set up a GCS Bucket (`gs://berns-earthquake-pipeline-gcp/`) with an organized folder structure for raw, processed, and script assets:
   - `/scripts/` – Stores the PySpark scripts (`job_earthquake_api.py` and `job_user_countries.py`)
   - `/raw/` – Landing storage for raw API ingestion data
   - `/processed/earthquakes/dt=YYYY-MM-DD/` – Output directory for processed earthquake CSV/Parquet files partitioned by date
@@ -26,9 +26,14 @@ Generate two main PySpark batch scripts for data extraction and transformation:
   - Converts and normalizes the GeoJSON/JSON response into a structured tabular format (e.g., id, place, magnitude, event_time, longitude, latitude).
   - Writes the transformed data back to GCS under `/processed/earthquakes/` using Hive-style partitioning (`dt=YYYY-MM-DD`).
 
-- `job_user_countries.py` (User/Country Reference Job):
+- [job_user_countries.py](https://github.com/btbarillo/DE_bootcamp3/blob/master/Projects/Week_7_Project/job_user_countries.py) (User/Country Reference Job):
   - Processes the user countries and threshold profiles data.
   - Writes the clean data to GCS under `/processed/user_countries/`.
+
+- Set up the batches on `Managed Apache Spark`and used **PySpark** as the batch type
+<img width="1087" height="684" alt="image" src="https://github.com/user-attachments/assets/b2c3000c-b1d5-4c1c-82d8-09a474501b00" />
+
+<img width="1392" height="309" alt="image" src="https://github.com/user-attachments/assets/21dd58f3-6c90-43f4-9f05-e84fe34edd78" />
 
 ### Step 3: Workflow Orchestration (Google Cloud Workflows)
 

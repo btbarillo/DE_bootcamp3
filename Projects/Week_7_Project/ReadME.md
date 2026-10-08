@@ -1,8 +1,7 @@
 # Week 7 Project: Flight & User Countries ETL Pipeline using Google Cloud Platform
 
 ## Project Overview
-In this project, 
-
+To extract and process real-time earthquake data from the USGS API alongside user country risk profiles in order to identify high-risk seismic events and automatically trigger location-based alerts.
 
 
 ## Step-by-Step Implementation

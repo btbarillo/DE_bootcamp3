@@ -18,14 +18,14 @@ To extract and process real-time earthquake data from the USGS API alongside use
 
 ### Step 2: Cloud Data Fusion Ingestion Pipelines
 
-1. Earthquake Data Pipeline (`pipeline-earthquake-ingestion`)
+## 1. Earthquake Data Pipeline (`pipeline-earthquake-ingestion`)
 
 - **Source:** USGS REST API (`https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson`) via **HTTP Poller**.
 - **Transform:** Extracted JSON payload using **Wrangler** directives (`parse-as-json :body`, `drop`).
 - **Sink:** Saved processed data to `gs://berns-earthquake-pipeline-gcp/processed/earthquakes/`.
 
 
-2. User Reference Data Pipeline (`pipeline-user-reference-ingestion`)
+## 2. User Reference Data Pipeline (`pipeline-user-reference-ingestion`)
 
 - **Source:** Static CSV file from `gs://berns-earthquake-pipeline-gcp/raw/` via **GCS Source**.
 - **Transform:** Formatted schema (`Use First Row as Header: True`) and clean columns (`country_name`, `region`, `emergency_contact_email`, `risk_threshold_mag`) using **Wrangler**.

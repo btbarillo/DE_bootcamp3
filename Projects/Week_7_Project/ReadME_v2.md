@@ -4,7 +4,7 @@
 To extract and process real-time earthquake data from the USGS API alongside user country risk profiles in order to identify high-risk seismic events and automatically trigger location-based alerts.
 
 
-# Step-by-Step Implementation
+## Step-by-Step Implementation
 
 ## Step 1: Storage Setup (Google Cloud Storage)
 - Set up a GCS Bucket (`gs://berns-earthquake-pipeline-gcp/`) with an organized folder structure for raw, processed, and script assets:

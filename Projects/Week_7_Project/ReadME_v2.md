@@ -31,6 +31,10 @@ To extract and process real-time earthquake data from the USGS API alongside use
 - **Transform:** Formatted schema (`Use First Row as Header: True`) and clean columns (`country_name`, `region`, `emergency_contact_email`, `risk_threshold_mag`) using **Wrangler**.
 - **Sink:** Saved structured user records to `gs://berns-earthquake-pipeline-gcp/processed/users/`.
 
+<img width="1439" height="727" alt="image" src="https://github.com/user-attachments/assets/88f3b444-f883-468e-bfde-cc8de3ab765d" />
+
+<img width="1439" height="720" alt="image" src="https://github.com/user-attachments/assets/ab3dd002-9ef6-47d7-9857-3e9e714ccbd5" />
+
 
 ## Step 3: BigQuery Integration & External Tables
 In BigQuery, I created the `berns_earthquake_db` dataset and configured external tables to query the data directly from GCS without duplicating or permanently importing files into the warehouse.

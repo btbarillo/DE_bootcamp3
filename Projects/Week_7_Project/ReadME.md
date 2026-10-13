@@ -111,7 +111,7 @@ Here's the sample result of the analysis:
 | earthquake_id | place | magnitude | event_time | country_name | region | risk_threshold_mag | emergency_contact_email | alert_status |
 | :--- | :--- | :---: | :--- | :--- | :--- | :---: | :--- | :---: |
 | us6000u0u7 | 3 km WSW of Shibayama, Japan | 4.9 | 2026-10-07 19:13:50.000000 UTC | Japan | East Asia | 5.0 | alert_jp@disaster.gov.jp | MONITOR |
-| us6000u0t4 | 34 km E of Sarangani, Philippines | 4.7 | 2026-10-07 16:42:49.000000 UTC | Philippines | Southeast Asia | 4.0 | alert_ph@disaster.gov.ph | **CRITICAL ALERT** |
-| us6000u0qw | 22 km WNW of Manado, Indonesia | 4.7 | 2026-10-07 10:57:34.000000 UTC | Indonesia | Southeast Asia | 4.5 | alert_id@disaster.gov.id | **CRITICAL ALERT** |
-| us6000u0rx | 45 km WNW of Ollagüe, Chile | 4.7 | 2026-10-07 15:46:14.000000 UTC | Chile | South America | 4.0 | alert_cl@disaster.gov.cl | **CRITICAL ALERT** |
-| us6000u0qw | 22 km WNW of Manado, Indonesia | 4.7 | 2026-10-07 10:57:34.000000 UTC | Indonesia | Southeast Asia | 4.5 | alert_id@disaster.gov.id | **CRITICAL ALERT** |
+| us6000u0t4 | 34 km E of Sarangani, Philippines | 4.7 | 2026-10-07 16:42:49.000000 UTC | Philippines | Southeast Asia | 4.0 | alert_ph@disaster.gov.ph | CRITICAL ALERT|
+| us6000u0qw | 22 km WNW of Manado, Indonesia | 4.7 | 2026-10-07 10:57:34.000000 UTC | Indonesia | Southeast Asia | 4.5 | alert_id@disaster.gov.id |  CRITICAL ALERT|
+| us6000u0rx | 45 km WNW of Ollagüe, Chile | 4.7 | 2026-10-07 15:46:14.000000 UTC | Chile | South America | 4.0 | alert_cl@disaster.gov.cl |  CRITICAL ALERT|
+| us6000u0qw | 22 km WNW of Manado, Indonesia | 4.7 | 2026-10-07 10:57:34.000000 UTC | Indonesia | Southeast Asia | 4.5 | alert_id@disaster.gov.id |  CRITICAL ALERT|

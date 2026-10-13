@@ -98,7 +98,7 @@ Additionally, `SELECT DISTINCT` is applied to the reference dataset subquery to 
 
 **Conditional Alert Logic**
 
-The (query)[https://github.com/btbarillo/DE_bootcamp3/blob/master/Projects/Week_7_Project/Earthquake_analysis.sql] uses a conditional `CASE WHEN` evaluation to categorize events based on country-specific risk levels:
+The [query](https://github.com/btbarillo/DE_bootcamp3/blob/master/Projects/Week_7_Project/Earthquake_analysis.sql) uses a conditional `CASE WHEN` evaluation to categorize events based on country-specific risk levels:
 
 * **`CRITICAL ALERT`:** Triggered if an earthquake's magnitude is greater than or equal to the country's defined `risk_threshold_mag`.
 * **`MONITOR`:** Assigned if the earthquake's magnitude falls below the designated threshold.

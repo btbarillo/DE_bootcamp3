@@ -113,18 +113,18 @@ Here's the sample result of the analysis:
 | us6000u0rr | Chagos Archipelago region | 5.2 | 2026-10-07 14:59:25.000000 UTC | | | | MONITOR |
 | us6000u0rr | Chagos Archipelago region | 5.2 | 2026-10-07 14:59:25.000000 UTC | | | | MONITOR |
 | us6000u0pb | South Sandwich Islands region | 4.9 | 2026-10-07 04:39:26.000000 UTC | | | | MONITOR |
-| us6000u0pb | South Sandwich Islands region | 4.9 | 2026-10-07 04:39:26.000000 UTC | | | | MONITOR |
-| us6000u0q1 | 80 km SW of El Arenal, Mexico | 4.9 | 2026-10-07 07:43:19.000000 UTC | | | | MONITOR |
 | us6000u0u7 | 3 km WSW of Shibayama, Japan | 4.9 | 2026-10-07 19:13:50.000000 UTC | Japan | East Asia | alert_jp@disaster.gov.jp | MONITOR |
-| us6000u0q1 | 80 km SW of El Arenal, Mexico | 4.9 | 2026-10-07 07:43:19.000000 UTC | | | | MONITOR |
-| us6000u0ns | 132 km ENE of Tadine, New Caledonia | 4.8 | 2026-10-07 02:49:59.000000 UTC | | | | MONITOR |
-| us6000u0ns | 132 km ENE of Tadine, New Caledonia | 4.8 | 2026-10-07 02:49:59.000000 UTC | | | | MONITOR |
-| us6000u0mu | 57 km E of Petropavlovsk-Kamchatsky, Russia | 4.8 | 2026-10-07 00:30:08.000000 UTC | | | | MONITOR |
-| us6000u0mu | 57 km E of Petropavlovsk-Kamchatsky, Russia | 4.8 | 2026-10-07 00:30:08.000000 UTC | | | | MONITOR |
-| us6000u0tm | 194 km S of Ust’-Kamchatsk Staryy, Russia | 4.8 | 2026-10-07 18:15:04.000000 UTC | | | | MONITOR |
 | us6000u0qw | 22 km WNW of Manado, Indonesia | 4.7 | 2026-10-07 10:57:34.000000 UTC | Indonesia | Southeast Asia | alert_id@disaster.gov.id | CRITICAL ALERT |
 | us6000u0rx | 45 km WNW of Ollagüe, Chile | 4.7 | 2026-10-07 15:46:14.000000 UTC | Chile | South America | alert_cl@disaster.gov.cl | CRITICAL ALERT |
 | us6000u0t4 | 34 km E of Sarangani, Philippines | 4.7 | 2026-10-07 16:42:49.000000 UTC | Philippines | Southeast Asia | alert_ph@disaster.gov.ph | CRITICAL ALERT |
-
+| us6000u0qw | 22 km WNW of Manado, Indonesia | 4.7 | 2026-10-07 10:57:34.000000 UTC | Indonesia | Southeast Asia | alert_id@disaster.gov.id | CRITICAL ALERT |
+| us6000u0uc | 9 km NNE of Midori, Japan | 4.6 | 2026-10-07 19:36:46.000000 UTC | Japan | East Asia | alert_jp@disaster.gov.jp | MONITOR |
+| us6000u0mr | 37 km ESE of Iwaki, Japan | 4.5 | 2026-10-07 00:22:41.000000 UTC | Japan | East Asia | alert_jp@disaster.gov.jp | MONITOR |
+| us6000u0yh | southeast of the Loyalty Islands | 4.5 | 2026-10-07 01:04:28.000000 UTC | | | | MONITOR |
+| us6000u0mr | 37 km ESE of Iwaki, Japan | 4.5 | 2026-10-07 00:22:41.000000 UTC | Japan | East Asia | alert_jp@disaster.gov.jp | MONITOR |
+| us6000u0tk | Volcano Islands, Japan region | 4.3 | 2026-10-07 17:59:03.000000 UTC | Japan | East Asia | alert_jp@disaster.gov.jp | MONITOR |
+| us6000u0v0 | 15 km ENE of Ōarai, Japan | 4.3 | 2026-10-07 22:14:07.000000 UTC | Japan | East Asia | alert_jp@disaster.gov.jp | MONITOR |
+| us6000u0n8 | 101 km ENE of Noda, Japan | 4.2 | 2026-10-07 01:31:56.000000 UTC | Japan | East Asia | alert_jp@disaster.gov.jp | MONITOR |
+| us6000u0n8 | 101 km ENE of Noda, Japan | 4.2 | 2026-10-07 01:31:56.000000 UTC | Japan | East Asia | alert_jp@disaster.gov.jp | MONITOR |
 
 
